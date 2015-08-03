@@ -1,0 +1,25 @@
+div.content-wrapper {
+	padding: 15px;
+}
+
+span.field-validation-error {
+	color: red;
+}
+
+span.field-validation-error::before {
+	content: '\f06a \00A0';
+	font-family: 'FontAwesome';
+}
+
+div.validation-summary-errors {
+	color: red;
+}
+
+div.validation-summary-errors > ul > li {
+	list-style-type: none; 
+}
+
+div.validation-summary-errors > ul > li::before {
+	content: '\f06a \00A0';
+	font-family: 'FontAwesome';
+}

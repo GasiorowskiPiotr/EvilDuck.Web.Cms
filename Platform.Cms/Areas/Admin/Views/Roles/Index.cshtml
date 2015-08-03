@@ -1,0 +1,52 @@
+﻿@model IEnumerable<EvilDuck.Platform.Cms.Areas.Admin.Models.Roles.RoleListViewModel>
+@{
+    ViewBag.Title = "Role";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Role</h3>
+    </div>
+    <div class="box-body">
+        @{
+            var index = 0;
+        }
+        @foreach (var role in Model)
+        {
+            if (index % 4 == 0)
+            {
+                @:<div class="row">
+            }
+
+            <div class="col-md-3 col-sm-12 col-xs-12">
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <p><b>@role.Name</b></p>
+                    </div>
+                    <div class="inner">
+                        <p><b></b></p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <a href="@Url.Action("Remove", new { id = role.Id})" class="small-box-footer">
+                        <span>
+                            Usuń <i class="fa fa-remove"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            if (index % 4 == 2 || index == Model.Count() - 1)
+            {
+                @:</div>
+            }
+            index++;
+
+        }
+
+    </div>
+    <div class="box-footer">
+        <a href="@Url.Action("Add")" class="btn btn-primary">Dodaj rolę</a>
+    </div>
+</div>
