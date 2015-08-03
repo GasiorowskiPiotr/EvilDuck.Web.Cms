@@ -1,18 +1,20 @@
 ﻿using System.Reflection;
 using EvilDuck.Framework.Core.DataAccess;
+using EvilDuck.Platform.Entities;
 
 namespace EvilDuck.Platform.Core.DataAccess
 {
     public class PlatformDomainContext : DomainContext
     {
-        public PlatformDomainContext() : base("")
+        public PlatformDomainContext()
+            : base("DefaultConnection")
         {
             
         }
 
         protected override Assembly GetMappingsAssembly()
         {
-            return null;
+            return typeof (ApplicationUser).Assembly;
         }
     }
 }
