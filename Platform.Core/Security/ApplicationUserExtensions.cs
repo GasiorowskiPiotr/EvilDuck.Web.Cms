@@ -12,6 +12,7 @@ namespace EvilDuck.Platform.Core.Security
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim("EvilDuck.Id", user.Id));
             return userIdentity;
         } 
     }

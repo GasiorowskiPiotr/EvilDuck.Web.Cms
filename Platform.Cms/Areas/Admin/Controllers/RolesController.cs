@@ -13,6 +13,7 @@ using NLog;
 
 namespace EvilDuck.Platform.Cms.Areas.Admin.Controllers
 {
+    [Authorize]
     public class RolesController : Controller
     {
         private readonly ApplicationDbContext _context;

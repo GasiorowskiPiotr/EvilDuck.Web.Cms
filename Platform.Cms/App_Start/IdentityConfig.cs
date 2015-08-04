@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using EvilDuck.Platform.Cms.Models;
 using EvilDuck.Platform.Core.Security;
 using EvilDuck.Platform.Entities;
 using Microsoft.AspNet.Identity;

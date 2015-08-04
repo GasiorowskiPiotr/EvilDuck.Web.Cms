@@ -9,12 +9,6 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Models.Users
         [Required(AllowEmptyStrings = false, ErrorMessage = "Haslo jest wymagane")]
         [DataType(DataType.Password)]
         [MaxLength(64, ErrorMessage = "Has這 jest za d逝gie")]
-        [Display(Name = "Stare has這")]
-        public string OldPassword { get; set; }
-
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Haslo jest wymagane")]
-        [DataType(DataType.Password)]
-        [MaxLength(64, ErrorMessage = "Has這 jest za d逝gie")]
         [Display(Name = "Nowe has這")]
         public string Password { get; set; }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using NLog;
 
 namespace EvilDuck.Platform.Cms.Areas.Admin.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -136,12 +138,67 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Controllers
                 return View(vm);
             }
 
-            var result = await _userManager.ChangePasswordAsync(user.Id, vm.OldPassword, vm.Password);
+            var result = await _userManager.RemovePasswordAsync(user.Id);
+            if (!result.Succeeded)
+            {
+                result.Errors.Do(e => ModelState.AddModelError(String.Empty, new Exception(e)));
+            }
+            result = await _userManager.AddPasswordAsync(user.Id, vm.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction("Index");
             }
             result.Errors.Do(e => ModelState.AddModelError(String.Empty, new Exception(e)));
+            return View(vm);
+        }
+
+        public async Task<ActionResult> AssignRoles(string id)
+        {
+            var user = _context.Users.Find(id);
+            if (user == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var vm = new AssignRolesViewModel
+            {
+                UserId = user.Id,
+                AllRoles = await _context.Roles.Select(r => r.Name).ToListAsync(),
+                SelectedRoles = user.Roles.Join(_context.Roles, e=> e.RoleId, e => e.Id, (iur ,ir) => ir.Name).ToList()
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AssignRoles(AssignRolesViewModel vm)
+        {
+            vm.AllRoles = await _context.Roles.Select(r => r.Name).ToListAsync();
+            var rolesToAdd = new List<string>();
+            var rolesToRemove = new List<string>();
+            foreach (var role in vm.AllRoles)
+            {
+                if (vm.SelectedRoles.Contains(role) && !await _userManager.IsInRoleAsync(vm.UserId, role))
+                {
+                    rolesToAdd.Add(role);
+                }
+                else if (!vm.SelectedRoles.Contains(role) && await _userManager.IsInRoleAsync(vm.UserId, role))
+                {
+                    rolesToRemove.Add(role);
+                }
+            }
+
+            var result = await _userManager.AddToRolesAsync(vm.UserId, rolesToAdd.ToArray());
+            if (!result.Succeeded)
+            {
+                result.Errors.Do(e => ModelState.AddModelError(String.Empty, e));
+            }
+            result = await _userManager.RemoveFromRolesAsync(vm.UserId, rolesToRemove.ToArray());
+            if (!result.Succeeded)
+            {
+                result.Errors.Do(e => ModelState.AddModelError(String.Empty, e));
+            }
+
             return View(vm);
         }
     }

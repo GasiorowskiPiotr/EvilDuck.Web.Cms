@@ -1,7 +1,10 @@
-﻿@model IEnumerable<EvilDuck.Platform.Cms.Areas.Admin.Models.Users.UserListViewModel>
+﻿@using EvilDuck.Framework.Core.Security
+@model IEnumerable<EvilDuck.Platform.Cms.Areas.Admin.Models.Users.UserListViewModel>
 @{
     ViewBag.Title = "Użytkownicy";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var isAdmin = User.IsInRole("Administrator");
+    var currentId = User.GetId();
 }
 
 <div class="box">
@@ -27,16 +30,30 @@
                     <div class="icon">
                         <i class="fa fa-user"></i>
                     </div>
-                    <a href="@Url.Action("ChangePassword", new { id = user.Id})" class="small-box-footer">
-                        <span>
-                            Zmień hasło <i class="fa fa-edit"></i>
-                        </span>
-                    </a>
-                    <a href="@Url.Action("Remove", new { id = user.Id})" class="small-box-footer">
-                        <span>
-                            Usuń <i class="fa fa-remove"></i>
-                        </span>
-                    </a>
+                    @if (isAdmin || currentId == user.Id)
+                    {
+                        <a href="@Url.Action("ChangePassword", new {id = user.Id})" class="small-box-footer">
+                            <span>
+                                Zmień hasło <i class="fa fa-edit"></i>
+                            </span>
+                        </a>
+                    }
+                    @if (isAdmin)
+                    {
+                        <a href="@Url.Action("Remove", new {id = user.Id})" class="small-box-footer">
+                            <span>
+                                Usuń <i class="fa fa-remove"></i>
+                            </span>
+                        </a>
+                    }
+                    @if (isAdmin)
+                    {
+                        <a href="@Url.Action("AssignRoles", new {id = user.Id})" class="small-box-footer">
+                            <span>
+                                Przypisz role <i class="fa fa-users"></i>
+                            </span>
+                        </a>
+                    }
                 </div>
             </div>
             if (index % 4 == 2 || index == Model.Count() - 1)
@@ -48,8 +65,11 @@
         }
 
     </div>
-    <div class="box-footer">
-        <a href="@Url.Action("Add")" class="btn btn-primary">Dodaj użytkownika</a>
-    </div>
+    @if (isAdmin)
+    {
+        <div class="box-footer">
+            <a href="@Url.Action("Add")" class="btn btn-primary">Dodaj użytkownika</a>
+        </div>
+    }
 </div>
 

@@ -182,6 +182,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\ApplicationOAuthProvider.cs" />
     <Compile Include="Security\ChallengeResult.cs" />
+    <Compile Include="Security\PrincipalExtensions.cs" />
     <Compile Include="Storage\IObjectStorage.cs" />
     <Compile Include="Storage\WebServer\InProcObjectStorage.cs" />
     <Compile Include="Storage\WebServer\InProcObjectStorageModule.cs" />
