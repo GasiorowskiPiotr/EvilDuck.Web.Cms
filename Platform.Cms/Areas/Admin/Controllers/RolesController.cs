@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using EvilDuck.Framework.Core.Utils;
 using EvilDuck.Platform.Cms.Areas.Admin.Models.Roles;
-using EvilDuck.Platform.Cms.Models;
 using EvilDuck.Platform.Core.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -13,7 +12,7 @@ using NLog;
 
 namespace EvilDuck.Platform.Cms.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class RolesController : Controller
     {
         private readonly ApplicationDbContext _context;

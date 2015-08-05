@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using EvilDuck.Framework.Core.Web.Mvc
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -70,19 +71,22 @@
                 </div>
                 <ul class="sidebar-menu">
                     <li class="header">MENU GŁÓWNE</li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-lock"></i> <span>Bezpieczeństwo</span> <i class="fa fa-angle-left pull-right"></i>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li class="active">
-                                <a href="@Url.Action("Index", "Users")"><i class="fa fa-user"></i>Użytkownicy</a>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("Index", "Roles")"><i class="fa fa-users"></i>Role</a>
-                            </li>
-                        </ul>
-                    </li>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <li class="treeview @Html.EvilDuck().ActiveMenuItem("Users", "Roles")">
+                            <a href="#">
+                                <i class="fa fa-lock"></i> <span>Bezpieczeństwo</span> <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="@Html.EvilDuck().ActiveMenuItem("Users")">
+                                    <a href="@Url.Action("Index", "Users")"><i class="fa fa-user"></i>Użytkownicy</a>
+                                </li>
+                                <li class="@Html.EvilDuck().ActiveMenuItem("Roles")">
+                                    <a href="@Url.Action("Index", "Roles")"><i class="fa fa-users"></i>Role</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-files-o"></i>
