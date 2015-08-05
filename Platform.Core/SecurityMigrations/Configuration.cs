@@ -37,8 +37,8 @@ namespace EvilDuck.Platform.Core.SecurityMigrations
                     UserName = "admin@evilduck.org"
                 };
 
-                new UsersManager(new UsersStore(context)).Create(appUser, "!QAZxsw2#");
-                new UsersManager(new UsersStore(context)).AddToRole(appUser.Id, "Administrator");
+                new ApplicationUserManager(new UsersStore(context)).Create(appUser, "!QAZxsw2#");
+                new ApplicationUserManager(new UsersStore(context)).AddToRole(appUser.Id, "Administrator");
             }
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

@@ -1,4 +1,6 @@
 ﻿using System;
+using Autofac;
+using Autofac.Integration.Owin;
 using EvilDuck.Framework.Core.Security;
 using EvilDuck.Platform.Cms.Models;
 using EvilDuck.Platform.Core.Security;
@@ -37,10 +39,15 @@ namespace EvilDuck.Platform.Cms
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            app.CreatePerOwinContext<ApplicationUserManager>((opts, owin) =>
+            {
+                var man = owin.GetAutofacLifetimeScope().Resolve<ApplicationUserManager>();
+                man.SetDataProtectionProvider(opts.DataProtectionProvider);
 
+                return man;
+            });
+
+            app.CreatePerOwinContext<ApplicationSignInManager>((opts, owin) => owin.GetAutofacLifetimeScope().Resolve<ApplicationSignInManager>());
             // Enable the application to use a cookie to store information for the signed in user
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {

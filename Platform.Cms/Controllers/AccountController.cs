@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using EvilDuck.Platform.Cms.Models;
+using EvilDuck.Platform.Core.Security;
 using EvilDuck.Platform.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -17,10 +18,6 @@ namespace EvilDuck.Platform.Cms.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController()
-        {
-        }
-
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
@@ -29,10 +26,7 @@ namespace EvilDuck.Platform.Cms.Controllers
 
         public ApplicationSignInManager SignInManager
         {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
+            get { return _signInManager; }
             private set
             {
                 _signInManager = value;
@@ -41,10 +35,7 @@ namespace EvilDuck.Platform.Cms.Controllers
 
         public ApplicationUserManager UserManager
         {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
+            get { return _userManager; }
             private set
             {
                 _userManager = value;

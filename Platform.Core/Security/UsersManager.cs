@@ -1,12 +1,23 @@
-﻿using EvilDuck.Platform.Entities;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
 namespace EvilDuck.Platform.Core.Security
 {
-    public class UsersManager : UserManager<ApplicationUser>
+    public class EmailService : IIdentityMessageService
     {
-        public UsersManager(IUserStore<ApplicationUser> store) : base(store)
+        public Task SendAsync(IdentityMessage message)
         {
+            // Plug in your email service here to send an email.
+            return Task.FromResult(0);
+        }
+    }
+
+    public class SmsService : IIdentityMessageService
+    {
+        public Task SendAsync(IdentityMessage message)
+        {
+            // Plug in your SMS service here to send a text message.
+            return Task.FromResult(0);
         }
     }
 }
