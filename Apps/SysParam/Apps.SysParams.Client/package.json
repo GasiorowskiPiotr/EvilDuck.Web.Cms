@@ -1,0 +1,26 @@
+{
+  "name": "Apps.SysParams.Client",
+  "version": "0.0.1",
+  "description": "Apps.SysParams.Client",
+  "main": "app.js",
+  "author": {
+    "name": "B4P",
+    "email": ""
+  },
+  "scripts": {
+    "build.client": "node_modules/.bin/webpack"
+  },
+  "dependencies": {
+    "flux": "^2.0.3",
+    "lodash": "^3.10.0",
+    "react": "^0.13.3",
+    "react-router": "^0.13.3"
+  },
+  "devDependencies": {
+    "babel-core": "^5.6.18",
+    "babel-loader": "^5.3.1",
+    "webpack": "^1.10.1",
+    "webpack-dev-server": "^1.10.1",
+    "webpack-merge": "^0.1.2"
+  }
+}

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using EvilDuck.Framework.Entities;
-using EvilDuck.Framework.Entities.Maps;
 
 namespace EvilDuck.Framework.Core.Web
 {

@@ -79,15 +79,15 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li class="@Html.EvilDuck().ActiveMenuItem("Users")">
-                                    <a href="@Url.Action("Index", "Users")"><i class="fa fa-user"></i>Użytkownicy</a>
+                                    <a href="@Url.Action("Index", "Users")"><i class="fa fa-user"></i><span>Użytkownicy</span></a>
                                 </li>
                                 <li class="@Html.EvilDuck().ActiveMenuItem("Roles")">
-                                    <a href="@Url.Action("Index", "Roles")"><i class="fa fa-users"></i>Role</a>
+                                    <a href="@Url.Action("Index", "Roles")"><i class="fa fa-users"></i><span>Role</span></a>
                                 </li>
                             </ul>
                         </li>
                         <li class="@Html.EvilDuck().ActiveMenuItem("SystemParameters")">
-                            <a href="@Url.Action("Index", "SystemParameters")"><i class="fa fa-sliders"></i>Parametry Systemowe</a>
+                            <a href="@Url.Action("Index", "SystemParameters")"><i class="fa fa-sliders"></i><span>Parametry Systemowe</span></a>
                         </li>
                     }
                 </ul>
@@ -97,8 +97,10 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-
-            @RenderBody()
+        
+            <section class="content">
+                @RenderBody()
+            </section>
 
         </div><!-- /.content-wrapper -->
         <footer class="main-footer">

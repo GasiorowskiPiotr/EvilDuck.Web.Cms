@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -46,12 +47,18 @@ namespace EvilDuck.Platform.Cms.Controllers
         // protected Web API. If the user is not logged in then they will be redirected to 
         // the Login page. After a successful login you can call a Web API.
         [HttpGet]
-        public ActionResult Authorize()
+        public ActionResult GetToken()
         {
             var claims = new ClaimsPrincipal(User).Claims.ToArray();
             var identity = new ClaimsIdentity(claims, "Bearer");
-            AuthenticationManager.SignIn(identity);
-            return new EmptyResult();
+            //AuthenticationManager.SignIn(identity);
+
+            var ticket = new AuthenticationTicket(identity, new AuthenticationProperties());
+            var currentUtc = new Microsoft.Owin.Infrastructure.SystemClock().UtcNow;
+            ticket.Properties.IssuedUtc = currentUtc;
+            ticket.Properties.ExpiresUtc = currentUtc.Add(TimeSpan.FromDays(1));
+            var accesstoken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
+            return Json(accesstoken, JsonRequestBehavior.AllowGet);
         }
 
         //
