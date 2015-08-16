@@ -13,6 +13,7 @@ namespace EvilDuck.Applications.SystemParameters.Core
             builder.RegisterUnitOfWork<SystemParametersUnitOfWork, SystemParametersDomainContext>();
             builder.RegisterType<SystemParametersRepository>().AsSelf().InstancePerRequest();
             builder.RegisterType<SystemParametersController>().AsSelf().InstancePerRequest();
+            builder.RegisterCache<SystemParametersCache>();
         }
     }
 }
