@@ -19,10 +19,10 @@ namespace EvilDuck.Framework.Core.Web.Mvc
         where TEntity : Entity<TKey>, new()
     {
         protected readonly TRepository Repository;
-        protected readonly IUnitOfWork UnitOfWork;
+        protected readonly IUnitOfWork<TContext> UnitOfWork;
         protected readonly Logger Logger;
 
-        protected MvcCrudController(TRepository repository, IUnitOfWork unitOfWork)
+        protected MvcCrudController(TRepository repository, IUnitOfWork<TContext> unitOfWork)
         {
             Repository = repository;
             UnitOfWork = unitOfWork;

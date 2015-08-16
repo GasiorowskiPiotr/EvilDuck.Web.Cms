@@ -5,6 +5,7 @@ using EvilDuck.Framework.Core.Modularity;
 using EvilDuck.Platform.Cms;
 using EvilDuck.Platform.Cms.Areas.Admin.Controllers;
 using EvilDuck.Platform.Cms.Models;
+using EvilDuck.Platform.Core.DataAccess;
 
 [assembly: AssemblyPluginDescriptor(typeof(PlatformPlugin))]
 
@@ -18,6 +19,8 @@ namespace EvilDuck.Platform.Cms
 
             builder.RegisterType<UsersController>().InstancePerRequest();
             builder.RegisterType<RolesController>().InstancePerRequest();
+            builder.RegisterUnitOfWork<PlatformUnitOfWork, PlatformDomainContext>();
+            builder.RegisterDomainContext<PlatformDomainContext>();
         }
     }
 }

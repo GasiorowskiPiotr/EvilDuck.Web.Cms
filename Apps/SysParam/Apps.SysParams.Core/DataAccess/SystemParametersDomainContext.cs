@@ -7,7 +7,8 @@ namespace EvilDuck.Applications.SystemParameters.Core.DataAccess
 {
     public class SystemParametersDomainContext : DomainContext
     {
-        public SystemParametersDomainContext(string nameOrConnectionString) : base(nameOrConnectionString)
+        public SystemParametersDomainContext()
+            : base("DefaultConnection")
         {
         }
 

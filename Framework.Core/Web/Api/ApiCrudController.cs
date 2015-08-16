@@ -18,20 +18,14 @@ namespace EvilDuck.Framework.Core.Web.Api
         where TEntity : Entity<TKey>, new()
     {
         protected readonly TRepository Repository;
-        protected readonly IUnitOfWork UnitOfWork;
+        protected readonly IUnitOfWork<TContext> UnitOfWork;
         protected readonly Logger Logger;
 
-        protected ApiCrudController(TRepository repository, IUnitOfWork unitOfWork)
+        protected ApiCrudController(TRepository repository, IUnitOfWork<TContext> unitOfWork)
         {
             Repository = repository;
             UnitOfWork = unitOfWork;
             Logger = LogManager.GetLogger(GetType().FullName);
-        }
-
-        protected override void Initialize(HttpControllerContext controllerContext)
-        {
-            base.Initialize(controllerContext);
-            UnitOfWork.SetUser(User.Identity);
         }
 
         protected async Task<ListResult<TEntity>> GetItems(QueryModel queryModel)
@@ -113,6 +107,7 @@ namespace EvilDuck.Framework.Core.Web.Api
 
             using (var tx = UnitOfWork.BeginTransaction(IsolationLevel.ReadCommitted))
             {
+                UnitOfWork.SetUser(User.Identity);
                 if (Logger.IsDebugEnabled)
                 {
                     Logger.Debug("Mapping ViewModel to Entity.");
@@ -155,6 +150,7 @@ namespace EvilDuck.Framework.Core.Web.Api
 
             using (var tx = UnitOfWork.BeginTransaction(IsolationLevel.ReadCommitted))
             {
+                UnitOfWork.SetUser(User.Identity);
                 if (Logger.IsDebugEnabled)
                 {
                     Logger.Debug("Getting entity from repository.");
@@ -206,7 +202,7 @@ namespace EvilDuck.Framework.Core.Web.Api
 
             using (var tx = UnitOfWork.BeginTransaction(IsolationLevel.ReadCommitted))
             {
-
+                UnitOfWork.SetUser(User.Identity);
                 DisattachReferences(entity);
                 UnitOfWork.Delete(entity);
                 await UnitOfWork.SaveChangesAsync();

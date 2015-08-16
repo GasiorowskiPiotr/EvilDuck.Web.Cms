@@ -11,7 +11,7 @@ namespace EvilDuck.Framework.Core.Web.Api
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
             config.EnableCors();
-
+            config.EnableSystemDiagnosticsTracing();
             // Web API routes
             config.MapHttpAttributeRoutes();
 

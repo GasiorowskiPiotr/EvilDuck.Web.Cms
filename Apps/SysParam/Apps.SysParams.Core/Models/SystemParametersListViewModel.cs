@@ -10,7 +10,10 @@ namespace EvilDuck.Applications.SystemParameters.Core.Models
         public string SerializedValue { get; set; }
         public string ParameterType { get; set; }
         public string ValueType { get; set; }
-        public string KeyType { get; set; }
+        public string CreatedBy { get; set; }
+        public string CreatedOn { get; set; }
+        public string LastUpdatedBy { get; set; }
+        public string LastUpdatedOn { get; set; }
 
         public void FillFromEntity(SystemParameter entity)
         {
@@ -18,8 +21,11 @@ namespace EvilDuck.Applications.SystemParameters.Core.Models
             SerializedValue = entity.SerializedValue;
             ParameterType = entity.ParameterType.ToString();
             ValueType = entity.ValueType.ToString();
-            KeyType = entity.KeyType.ToString();
             Code = entity.Id;
+            CreatedBy = entity.CreatedBy;
+            CreatedOn = entity.CreatedOn.ToString();
+            LastUpdatedBy = entity.LastUpdateBy;
+            LastUpdatedOn = entity.LastUpdateOn.ToString();
         }
     }
 }

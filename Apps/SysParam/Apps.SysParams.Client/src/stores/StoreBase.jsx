@@ -67,6 +67,8 @@ export default class StoreBase extends EventEmitter {
   }
 
   batchLocalLoad(items) {
+    this._items = [];
+
     for(var item of items) {
       this._items.push(item);
     }

@@ -329,6 +329,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Apps\SysParam\Apps.SysParams.Core\Apps.SysParams.Core.csproj">
+      <Project>{75b97510-7ef8-4d02-a052-2a94c884b7f3}</Project>
+      <Name>Apps.SysParams.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Framework.Core\Framework.Core.csproj">
       <Project>{EF9A6B47-F7E6-4467-8D3C-0585A6D29443}</Project>
       <Name>Framework.Core</Name>

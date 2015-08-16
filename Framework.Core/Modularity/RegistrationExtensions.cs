@@ -37,16 +37,16 @@ namespace EvilDuck.Framework.Core.Modularity
         }
 
         public static void RegisterUnitOfWork<TUnitOfWork, TDomainContext>(this ContainerBuilder cb)
-            where TUnitOfWork : IUnitOfWork
+            where TUnitOfWork : IUnitOfWork<TDomainContext>
             where TDomainContext : DomainContext
         {
-            cb.RegisterType<TUnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
+            cb.RegisterType<TUnitOfWork>().As<IUnitOfWork<TDomainContext>>().InstancePerRequest();
         }
 
         public static void RegisterUnitOfWork<TUnitOfWork, TIUnitOfWork, TDomainContext>(this ContainerBuilder cb)
             where TUnitOfWork : UnitOfWork<TDomainContext>, TIUnitOfWork
             where TDomainContext : DomainContext
-            where TIUnitOfWork : IUnitOfWork
+            where TIUnitOfWork : IUnitOfWork<TDomainContext>
         {
             cb.RegisterType<TUnitOfWork>().As<TIUnitOfWork>().InstancePerRequest();
         }

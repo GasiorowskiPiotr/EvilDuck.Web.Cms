@@ -22,7 +22,7 @@ namespace EvilDuck.Framework.Core.Security
         {
             if (context.ClientId == _publicClientId)
             {
-                var expectedRootUri = new Uri(context.Request.Uri, "/");
+                /*var expectedRootUri = new Uri(context.Request.Uri, "/");
 
                 if (expectedRootUri.AbsoluteUri == context.RedirectUri)
                 {
@@ -32,7 +32,8 @@ namespace EvilDuck.Framework.Core.Security
                 {
                     var expectedUri = new Uri(context.Request.Uri, "/");
                     context.Validated(expectedUri.AbsoluteUri);
-                }
+                }*/
+                context.Validated();
             }
 
             return Task.FromResult<object>(null);

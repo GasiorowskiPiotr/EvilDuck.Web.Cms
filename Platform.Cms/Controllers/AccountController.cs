@@ -4,12 +4,15 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using EvilDuck.Framework.Core.Security;
 using EvilDuck.Platform.Cms.Models;
 using EvilDuck.Platform.Core.Security;
 using EvilDuck.Platform.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OAuth;
 
 namespace EvilDuck.Platform.Cms.Controllers
 {
@@ -47,18 +50,24 @@ namespace EvilDuck.Platform.Cms.Controllers
         // protected Web API. If the user is not logged in then they will be redirected to 
         // the Login page. After a successful login you can call a Web API.
         [HttpGet]
-        public ActionResult GetToken()
+        public ActionResult Authorize()
         {
             var claims = new ClaimsPrincipal(User).Claims.ToArray();
             var identity = new ClaimsIdentity(claims, "Bearer");
+            AuthenticationManager.SignIn(identity);
+            return new EmptyResult();
+            /*
+            var claims = new ClaimsPrincipal(User).Claims.ToArray();
+            var identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
             //AuthenticationManager.SignIn(identity);
-
             var ticket = new AuthenticationTicket(identity, new AuthenticationProperties());
             var currentUtc = new Microsoft.Owin.Infrastructure.SystemClock().UtcNow;
             ticket.Properties.IssuedUtc = currentUtc;
             ticket.Properties.ExpiresUtc = currentUtc.Add(TimeSpan.FromDays(1));
             var accesstoken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
             return Json(accesstoken, JsonRequestBehavior.AllowGet);
+             * */
+
         }
 
         //

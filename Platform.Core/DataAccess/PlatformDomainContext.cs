@@ -17,4 +17,11 @@ namespace EvilDuck.Platform.Core.DataAccess
             return typeof (ApplicationUser).Assembly;
         }
     }
+
+    public class PlatformUnitOfWork : UnitOfWork<PlatformDomainContext>
+    {
+        public PlatformUnitOfWork(PlatformDomainContext context) : base(context)
+        {
+        }
+    }
 }

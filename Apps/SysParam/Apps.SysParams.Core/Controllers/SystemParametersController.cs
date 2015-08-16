@@ -10,10 +10,11 @@ using EvilDuck.Framework.Core.Web.Api;
 namespace EvilDuck.Applications.SystemParameters.Core.Controllers
 {
     [RoutePrefix("api/SystemParameters")]
+    [Authorize]
     public class SystemParametersController :
         ApiCrudController<SystemParametersDomainContext, SystemParametersRepository, SystemParameter, string>
     {
-        public SystemParametersController(SystemParametersRepository repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
+        public SystemParametersController(SystemParametersRepository repository, IUnitOfWork<SystemParametersDomainContext> unitOfWork) : base(repository, unitOfWork)
         {
         }
 
@@ -24,13 +25,25 @@ namespace EvilDuck.Applications.SystemParameters.Core.Controllers
             return Ok(results.Map<SystemParameter, SystemParametersListViewModel>());
         }
 
-        [HttpGet, Route("{id}")]
+        [HttpGet, Route("{id}", Name = "GetSystemParameterById")]
         public async Task<IHttpActionResult> Get(string id)
         {
             var result = await GetItemAsync(id);
             return Ok(result);
         }
 
+        [HttpPost, Route("")]
+        public async Task<IHttpActionResult> Post(SystemParameterEditorViewModel vm)
+        {
+            var param = await CreateFromAsync(vm);
+            return CreatedAtRoute("GetSystemParameterById", new {id = param.Id}, param);
+        }
 
+        [HttpDelete, Route("{id}")]
+        public async Task<IHttpActionResult> Delete(string id)
+        {
+            await this.RemoveAsync(id);
+            return Ok();
+        }
     }
 }

@@ -6,7 +6,7 @@ using EvilDuck.Framework.Entities;
 
 namespace EvilDuck.Framework.Core.DataAccess
 {
-    public class UnitOfWork<TDomainContext> : IUnitOfWork where TDomainContext : DomainContext
+    public class UnitOfWork<TDomainContext> : IUnitOfWork<TDomainContext> where TDomainContext : DomainContext
     {
         private readonly TDomainContext _context;
 
