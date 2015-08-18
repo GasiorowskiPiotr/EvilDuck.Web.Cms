@@ -194,6 +194,7 @@
     <Compile Include="Storage\IObjectStorage.cs" />
     <Compile Include="Storage\WebServer\InProcObjectStorage.cs" />
     <Compile Include="Storage\WebServer\InProcObjectStorageModule.cs" />
+    <Compile Include="Testing\Awaiter.cs" />
     <Compile Include="Utils\FunctionalExtensions.cs" />
     <Compile Include="Utils\SlugMaker.cs" />
     <Compile Include="Web\Api\ApiCrudController.cs" />

@@ -18,15 +18,6 @@ namespace EvilDuck.Framework.Core.Cache
             return MemoryCache.Default.Get(key);
         }
 
-        private void Add(string key, object value)
-        {
-            if (Logger.IsInfoEnabled)
-            {
-                Logger.Info("Adding item with key: {0}", key);
-            }
-            MemoryCache.Default.Add(key, value, new CacheItemPolicy());
-        }
-
         private void Add(string key, object value, DateTime absoluteExpiration)
         {
             var cacheItemPolicy = new CacheItemPolicy { AbsoluteExpiration = absoluteExpiration };
@@ -192,10 +183,6 @@ namespace EvilDuck.Framework.Core.Cache
             else if (_useAbsoluteExpiration)
             {
                 Add(BuildUniqueStringKey(key), value, AbsoluteExpiration);
-            }
-            else
-            {
-                Add(BuildUniqueStringKey(key), value);
             }
         }
 

@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apps.SysParams.Core", "Apps
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Apps.SysParams.Client", "Apps\SysParam\Apps.SysParams.Client\Apps.SysParams.Client.njsproj", "{1A66ED27-6600-489A-8FFC-DA3DF83870A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Core.Tests", "Framework.Core.Tests\Framework.Core.Tests.csproj", "{78C8CFCE-656D-45B5-A233-B547B0144AD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,10 @@ Global
 		{1A66ED27-6600-489A-8FFC-DA3DF83870A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A66ED27-6600-489A-8FFC-DA3DF83870A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A66ED27-6600-489A-8FFC-DA3DF83870A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78C8CFCE-656D-45B5-A233-B547B0144AD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78C8CFCE-656D-45B5-A233-B547B0144AD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78C8CFCE-656D-45B5-A233-B547B0144AD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78C8CFCE-656D-45B5-A233-B547B0144AD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,5 +92,6 @@ Global
 		{0C293F93-547D-43E8-AE5F-CBCF5CCC1B7A} = {BEB4D260-3CE8-4AB5-90C5-58DD0DB7C031}
 		{75B97510-7EF8-4D02-A052-2A94C884B7F3} = {BEB4D260-3CE8-4AB5-90C5-58DD0DB7C031}
 		{1A66ED27-6600-489A-8FFC-DA3DF83870A1} = {BEB4D260-3CE8-4AB5-90C5-58DD0DB7C031}
+		{78C8CFCE-656D-45B5-A233-B547B0144AD2} = {A778DDF3-CC97-4680-B7D9-1D5986D0DE17}
 	EndGlobalSection
 EndGlobal
