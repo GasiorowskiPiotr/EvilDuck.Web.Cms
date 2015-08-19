@@ -199,14 +199,19 @@
     <Compile Include="Utils\SlugMaker.cs" />
     <Compile Include="Web\Api\ApiCrudController.cs" />
     <Compile Include="Web\Api\WebApiConfig.cs" />
+    <Compile Include="Web\CreateEntityViewModel.cs" />
+    <Compile Include="Web\EditEntityViewModel.cs" />
+    <Compile Include="Web\EntityListViewModel.cs" />
     <Compile Include="Web\FilterOper.cs" />
-    <Compile Include="Web\IEntityEditorViewModel.cs" />
-    <Compile Include="Web\IEntityListViewModel.cs" />
+    <Compile Include="Web\IAmFilledFromEntity.cs" />
+    <Compile Include="Web\IFillEntity.cs" />
+    <Compile Include="Web\IValidatableViewModel.cs" />
     <Compile Include="Web\ListResult.cs" />
     <Compile Include="Web\Mvc\EvilDuckControllerFactory.cs" />
     <Compile Include="Web\Mvc\HtmlHelperEx.cs" />
     <Compile Include="Web\Mvc\JsonNetResult.cs" />
     <Compile Include="Web\Mvc\MvcCrudController.cs" />
+    <Compile Include="Web\Mvc\PageExtensions.cs" />
     <Compile Include="Web\OrderDir.cs" />
     <Compile Include="Web\QueryModel.cs" />
   </ItemGroup>

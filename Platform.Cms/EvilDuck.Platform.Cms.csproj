@@ -196,11 +196,18 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ColumnsController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\SystemParametersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TablesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Admin\Models\Roles\AddRoleViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Roles\RoleListViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Tables\AddTableViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Tables\ColumnsListViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Tables\CreateColumnViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Tables\EditTableViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Tables\TableListViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Users\AddUserViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Users\AssignRolesViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Users\ChangeUserPasswordViewModel.cs" />
@@ -257,6 +264,11 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Areas\Admin\Views\Tables\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Screen.cshtml" />
+    <Content Include="Areas\Admin\Views\Tables\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Tables\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Columns\GetColumns.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

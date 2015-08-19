@@ -2,7 +2,7 @@
 
 namespace EvilDuck.Framework.Core.Web
 {
-    public interface IEntityListViewModel<in TEntity> where TEntity : Entity
+    public interface IAmFilledFromEntity<in TEntity> where TEntity : Entity
     {
         void FillFromEntity(TEntity entity);
     }

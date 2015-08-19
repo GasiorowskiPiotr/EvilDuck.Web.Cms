@@ -2,8 +2,10 @@ using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using EvilDuck.Framework.Core.DataAccess;
@@ -117,7 +119,52 @@ namespace EvilDuck.Framework.Core.Web.Mvc
             return new ListResult<TEntity>(items, allCount, queryModel);
         }
 
-        protected bool CreateFrom<TViewModel>(TViewModel viewModel, out TEntity entity) where TViewModel : IEntityEditorViewModel<TEntity>
+        protected async Task<TEntity> CreateFromAsync<TViewModel>(TViewModel viewModel)
+            where TViewModel : CreateEntityViewModel<TEntity>
+        {
+            if (Logger.IsInfoEnabled)
+            {
+                Logger.Info("Creating entity from ViewModel.");
+            }
+            if (Logger.IsDebugEnabled)
+            {
+                Logger.Debug("ViewModel: {0}", JsonConvert.SerializeObject(viewModel));
+            }
+            CustomValidate(viewModel);
+            if (!ModelState.IsValid)
+            {
+                if (Logger.IsWarnEnabled)
+                {
+                    Logger.Warn("Validation failed: {0}", JsonConvert.SerializeObject(ModelState));
+                }
+                return null;
+            }
+
+            var entity = new TEntity();
+
+            using (var tx = UnitOfWork.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                if (Logger.IsDebugEnabled)
+                {
+                    Logger.Debug("Mapping ViewModel to Entity.");
+                }
+                ViewModelToEntity(viewModel, entity);
+
+                UnitOfWork.Add(entity);
+                await UnitOfWork.SaveChangesAsync();
+
+                tx.Commit();
+
+                if (Logger.IsDebugEnabled)
+                {
+                    Logger.Debug("New entity created.");
+                }
+            }
+
+            return entity;
+        } 
+
+        protected bool CreateFrom<TViewModel>(TViewModel viewModel, out TEntity entity) where TViewModel : CreateEntityViewModel<TEntity>
         {
             if (Logger.IsInfoEnabled)
             {
@@ -162,7 +209,29 @@ namespace EvilDuck.Framework.Core.Web.Mvc
             return true;
         }
 
-        protected async Task<TEntity> UpdateFromAsync<TViewModel>(TKey entityKey, TViewModel viewModel) where TViewModel : IEntityEditorViewModel<TEntity>
+        protected async Task<TViewModel> PrepareEditorViewModel<TViewModel>(TKey id) where TViewModel : EditEntityViewModel<TEntity, TKey>, new()
+        {
+            if (Logger.IsInfoEnabled)
+            {
+                Logger.Info("Preparing Editor ViewModel for entity with id: {0}.", id);
+            }
+            var entity = await Repository.GetByKeyAsync(id);
+            if (entity == null)
+            {
+                if (Logger.IsErrorEnabled)
+                {
+                    Logger.Error("Could not find entity with id: {0}", id);
+                }
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            var viewModel = new TViewModel();
+            viewModel.FillFromEntity(entity);
+
+            return viewModel;
+        }
+
+        protected async Task<TEntity> UpdateFromAsync<TViewModel>(TKey entityKey, TViewModel viewModel) where TViewModel : EditEntityViewModel<TEntity, TKey>
         {
             if (Logger.IsInfoEnabled)
             {
@@ -274,10 +343,14 @@ namespace EvilDuck.Framework.Core.Web.Mvc
 
         protected virtual void CustomValidate<TViewModel>(TViewModel viewModel)
         {
-
+            var editableViewModel = viewModel as IValidatableViewModel;
+            if (editableViewModel != null)
+            {
+                editableViewModel.Validate(ModelState);
+            }
         }
 
-        protected virtual void ViewModelToEntity<TViewModel>(TViewModel viewModel, TEntity entity) where TViewModel : IEntityEditorViewModel<TEntity>
+        protected virtual void ViewModelToEntity<TViewModel>(TViewModel viewModel, TEntity entity) where TViewModel : IFillEntity<TEntity>
         {
             viewModel.FillEntity(entity);
         }

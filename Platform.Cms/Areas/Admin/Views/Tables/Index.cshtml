@@ -1,0 +1,63 @@
+﻿@model IEnumerable<EvilDuck.Platform.Cms.Areas.Admin.Models.Tables.TableListViewModel>
+@{
+    Layout = "../Shared/_Screen.cshtml";
+    ViewBag.Title = "Lista Tabel";
+}
+
+@section actions
+{
+<a href="@Url.Action("Add")">
+    <span class="fa fa-plus"></span>&nbsp;Dodaj
+</a>
+}
+
+<div class="table-responsive no-padding">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Akcje</th>
+                <th>Nazwa</th>
+                <th>Opis</th>
+                <th>Wyeksportowany?</th>
+                <th>Liczba kolumn</th>
+                <th>Utworzony przez</th>
+                <th>Utworzony</th>
+                <th>Zmieniony przez</th>
+                <th>Zmieniony</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="9">Brak danych</td>
+                </tr>
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.IsExported</td>
+                    <td>@item.ColumnCount</td>
+                    <td>@item.CreatedBy</td>
+                    <td>@item.CreatedOn</td>
+                    <td>@item.LastUpdatedBy</td>
+                    <td>@item.LastUpdatedOn</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+     
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="#">«</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">»</a></li>
+        </ul>        
+        
+    </div>
+</div>

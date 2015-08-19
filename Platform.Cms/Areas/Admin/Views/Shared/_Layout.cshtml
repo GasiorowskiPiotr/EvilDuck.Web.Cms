@@ -89,6 +89,16 @@
                         <li class="@Html.EvilDuck().ActiveMenuItem("SystemParameters")">
                             <a href="@Url.Action("Index", "SystemParameters")/"><i class="fa fa-sliders"></i><span>Parametry Systemowe</span></a>
                         </li>
+                        <li class="treeview @Html.EvilDuck().ActiveMenuItem("Tables")">
+                            <a href="#">
+                                <i class="fa fa-database"></i> <span>Źródła danych</span> <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="@Html.EvilDuck().ActiveMenuItem("Tables")">
+                                    <a href="@Url.Action("Index", "Tables")"><i class="fa fa-table"></i><span>Tabele</span></a>
+                                </li>
+                            </ul>
+                        </li>
                     }
                 </ul>
             </section>

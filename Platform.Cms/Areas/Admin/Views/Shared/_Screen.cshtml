@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "_Layout.cshtml";
+    var width = ViewBag.Width ?? 12;
+    var className = String.Format("col-md-{0}", width);
+    if (width != 12)
+    {
+        var offset = (12 - width)/2;
+        className = String.Format("{0} col-md-offset-{1}", className, offset);
+    }
+}
+<div class="row">
+    <div class="@className">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">@ViewBag.Title</h3>
+                <div class="box-tools">
+                    <div class="input-group" style="padding-top: 5px">
+                        @RenderSection("actions", false)
+                    </div>
+
+                </div>
+            </div>
+            <div class="box-body">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</div>

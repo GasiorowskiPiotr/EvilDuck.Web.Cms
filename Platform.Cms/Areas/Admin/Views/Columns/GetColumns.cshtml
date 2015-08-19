@@ -1,0 +1,50 @@
+﻿@model EvilDuck.Framework.Core.Web.ListResult<EvilDuck.Platform.Cms.Areas.Admin.Models.Tables.ColumnsListViewModel>
+
+<div>
+    <a href="@Url.Action("AddColumn")">
+        <span class="fa fa-plus"></span>&nbsp;Dodaj
+    </a>
+    
+
+    <div class="table-responsive no-padding">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Akcje</th>
+                    <th>Nazwa</th>
+                    <th>Opis</th>
+                    <th>Typ</th>
+                    <th>Długość</th>
+                    <th>Klucz?</th>
+                    <th>Auto klucz?</th>
+                    <th>Domyślna wartość</th>
+                    <th>Relacja?</th>
+                    <th>Tabela połączona</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Entities.Any())
+                {
+                    <tr>
+                        <td colspan="10">Brak kolumn</td>
+                    </tr>
+                }
+                @foreach (var item in Model.Entities)
+                {
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>@item.Name</td>
+                        <td>@item.Caption</td>
+                        <td>@item.Type</td>
+                        <td>@item.Length</td>
+                        <td>@item.IsKey</td>
+                        <td>@item.AutoincrementKey</td>
+                        <td>@item.DefaultValue</td>
+                        <td>@item.IsRelation</td>
+                        <td>@item.RelationTable</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

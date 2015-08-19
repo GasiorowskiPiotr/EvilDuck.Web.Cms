@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Web.Mvc;
 using EvilDuck.Applications.SystemParameters.Entities;
 using EvilDuck.Framework.Core.Web;
 using Type = EvilDuck.Applications.SystemParameters.Entities.Type;
 
 namespace EvilDuck.Applications.SystemParameters.Core.Models
 {
-    public class SystemParameterEditorViewModel : IEntityEditorViewModel<SystemParameter>
+    public class SystemParameterEditorViewModel : CreateEntityViewModel<SystemParameter>
     {
 
         public string Code { get; set; }
@@ -15,7 +16,7 @@ namespace EvilDuck.Applications.SystemParameters.Core.Models
         public string SerializedValue { get; set; }
 
 
-        public void FillEntity(SystemParameter entity)
+        public override void FillEntity(SystemParameter entity)
         {
             entity.Id = Code;
             entity.Description = Description;

@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Controllers;
 using EvilDuck.Framework.Core.DataAccess;
 using EvilDuck.Framework.Entities;
 using Newtonsoft.Json;
@@ -83,7 +82,7 @@ namespace EvilDuck.Framework.Core.Web.Api
             return query;
         }
 
-        protected async Task<TEntity> CreateFromAsync<TViewModel>(TViewModel viewModel) where TViewModel : IEntityEditorViewModel<TEntity>
+        protected async Task<TEntity> CreateFromAsync<TViewModel>(TViewModel viewModel) where TViewModel : CreateEntityViewModel<TEntity>
         {
             if (Logger.IsInfoEnabled)
             {
@@ -128,7 +127,7 @@ namespace EvilDuck.Framework.Core.Web.Api
             return entity;
         }
 
-        protected async Task<TEntity> UpdateFromAsync<TViewModel>(TKey entityKey, TViewModel viewModel) where TViewModel : IEntityEditorViewModel<TEntity>
+        protected async Task<TEntity> UpdateFromAsync<TViewModel>(TKey entityKey, TViewModel viewModel) where TViewModel : EditEntityViewModel<TEntity, TKey>
         {
             if (Logger.IsInfoEnabled)
             {
@@ -221,7 +220,7 @@ namespace EvilDuck.Framework.Core.Web.Api
 
         }
 
-        protected virtual void ViewModelToEntity<TViewModel>(TViewModel viewModel, TEntity entity) where TViewModel : IEntityEditorViewModel<TEntity>
+        protected virtual void ViewModelToEntity<TViewModel>(TViewModel viewModel, TEntity entity) where TViewModel : IFillEntity<TEntity>
         {
             viewModel.FillEntity(entity);
         }

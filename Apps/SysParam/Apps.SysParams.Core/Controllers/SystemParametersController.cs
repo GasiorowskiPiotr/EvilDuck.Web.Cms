@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using System.Web.Http;
 using EvilDuck.Applications.SystemParameters.Core.DataAccess;
 using EvilDuck.Applications.SystemParameters.Core.Models;
@@ -22,7 +24,12 @@ namespace EvilDuck.Applications.SystemParameters.Core.Controllers
         public async Task<IHttpActionResult> List(QueryModel queryModel)
         {
             var results = await GetItems(queryModel);
-            return Ok(results.Map<SystemParameter, SystemParametersListViewModel>());
+            return
+                Ok(
+                    new ListResult<SystemParametersListViewModel>(
+                        results.Entities.Select(e => new SystemParametersListViewModel(e)), results.AllCount,
+                        results.QueryModel));
+
         }
 
         [HttpGet, Route("{id}", Name = "GetSystemParameterById")]
