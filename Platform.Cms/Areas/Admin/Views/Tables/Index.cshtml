@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<EvilDuck.Platform.Cms.Areas.Admin.Models.Tables.TableListViewModel>
 @{
-    Layout = "../Shared/_Screen.cshtml";
+    Layout = Request.IsAjaxRequest() ? null : "../Shared/_Screen.cshtml";
     ViewBag.Title = "Lista Tabel";
 }
 
@@ -11,7 +11,7 @@
 </a>
 }
 
-<div class="table-responsive no-padding">
+<div class="table-responsive no-padding" id="tables">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -36,7 +36,15 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>&nbsp;</td>
+                    <td>
+                        @Ajax.ActionLink("Usuń", "Remove", new { @item.Id }, new AjaxOptions()
+                        {
+                            HttpMethod = "POST",
+                            UpdateTargetId = "tables",
+                            InsertionMode = InsertionMode.Replace
+                        }) |
+                        @Html.ActionLink("Edytuj", "Edit", new { @item.Id })
+                </td>
                     <td>@item.Name</td>
                     <td>@item.Description</td>
                     <td>@item.IsExported</td>
@@ -49,15 +57,4 @@
             }
         </tbody>
     </table>
-    <div>
-     
-        <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">»</a></li>
-        </ul>        
-        
-    </div>
 </div>

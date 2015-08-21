@@ -1,11 +1,18 @@
 ﻿@model EvilDuck.Framework.Core.Web.ListResult<EvilDuck.Platform.Cms.Areas.Admin.Models.Tables.ColumnsListViewModel>
 
-<div>
-    <a href="@Url.Action("AddColumn")">
-        <span class="fa fa-plus"></span>&nbsp;Dodaj
-    </a>
-    
 
+<div id="colummns-container">
+    @if (ViewBag.Errors != null)
+    {
+        IEnumerable<string> errors = ViewBag.Errors;
+
+        <ul>
+            @foreach (var msg in errors)
+            {
+                <li>@msg</li>
+            }
+        </ul>
+    }
     <div class="table-responsive no-padding">
         <table class="table table-hover">
             <thead>
@@ -32,7 +39,15 @@
                 @foreach (var item in Model.Entities)
                 {
                     <tr>
-                        <td>&nbsp;</td>
+                        <td>
+                            @Ajax.ActionLink("Usuń", "Remove", new {id = item.ColumnId, tableId = item.TableId}, new AjaxOptions()
+                            {
+                                HttpMethod = "POST",
+                                InsertionMode = InsertionMode.Replace,
+                                UpdateTargetId = "colummns-container"
+                            })
+                        </td>
+
                         <td>@item.Name</td>
                         <td>@item.Caption</td>
                         <td>@item.Type</td>
@@ -48,3 +63,5 @@
         </table>
     </div>
 </div>
+
+

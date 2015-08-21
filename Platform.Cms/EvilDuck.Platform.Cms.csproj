@@ -269,6 +269,7 @@
     <Content Include="Areas\Admin\Views\Tables\Add.cshtml" />
     <Content Include="Areas\Admin\Views\Tables\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Columns\GetColumns.cshtml" />
+    <Content Include="Areas\Admin\Views\Columns\AddColumn.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

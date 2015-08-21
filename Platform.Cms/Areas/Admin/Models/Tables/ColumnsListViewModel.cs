@@ -20,9 +20,11 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Models.Tables
         public bool AutoincrementKey { get; set; }
 
         public int TableId { get; set; }
+        public int ColumnId { get; set; }
 
         public ColumnsListViewModel(Column entity, int tableId) : base(entity)
         {
+            TableId = tableId;
         }
 
         protected override void FillFieldsFromEntity(Column entity)
@@ -36,6 +38,7 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Models.Tables
             RelationTable = entity.RelationTable;
             IsKey = entity.IsKey;
             AutoincrementKey = entity.AutoincrementKey;
+            ColumnId = entity.Id;
         }
     }
 }

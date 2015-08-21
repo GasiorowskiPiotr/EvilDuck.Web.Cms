@@ -17,14 +17,22 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Controllers
 {
     public class ColumnsController : MvcCrudController<PlatformDomainContext, TablesRepository, Table, int>
     {
-        public ColumnsController(TablesRepository repository, IUnitOfWork<PlatformDomainContext> unitOfWork) : base(repository, unitOfWork)
+        private readonly PlatformDomainContext _domainContext;
+
+        public ColumnsController(PlatformDomainContext domainContext, TablesRepository repository, IUnitOfWork<PlatformDomainContext> unitOfWork) : base(repository, unitOfWork)
         {
+            _domainContext = domainContext;
         }
 
         public ActionResult AddColumn(int id)
         {
             if (Request.IsAjaxRequest())
-                return PartialView(new CreateColumnViewModel(id));
+            {
+                var vm = new CreateColumnViewModel(id);
+                vm.UseContext(_domainContext);
+
+                return PartialView(vm);
+            }
             return new EmptyResult();
         }
 
@@ -33,20 +41,40 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Controllers
         {
             UnitOfWork.SetUser(User.Identity);
 
+            Table table;
+            vm.Validate(ModelState);
+            if (!ModelState.IsValid)
+            {
+                table = await GetItemAsync(vm.TableId);
+                var items = table.Columns.Select(c => new ColumnsListViewModel(c, vm.TableId)).ToList();
+
+                ViewBag.Errors = ModelState.SelectMany(e => e.Value.Errors).Select(e => e.ErrorMessage);
+
+                return PartialView("GetColumns", new ListResult<ColumnsListViewModel>(items, items.Count(), new QueryModel()));
+            }
+
             using (var tx = UnitOfWork.BeginTransaction(IsolationLevel.ReadCommitted))
             {
-                var table = await GetItemAsync(vm.TableId);
+                table = await GetItemAsync(vm.TableId);
                 var column = new Column();
-
+                
                 vm.FillEntity(column);
+
+                UnitOfWork.Add(column);
 
                 table.Columns.Add(column);
 
                 await UnitOfWork.SaveChangesAsync();
+
+                table = await GetItemAsync(vm.TableId);
+                var items = table.Columns.Select(c => new ColumnsListViewModel(c, vm.TableId)).ToList();
+
                 tx.Commit();
+
+                return PartialView("GetColumns", new ListResult<ColumnsListViewModel>(items, items.Count(), new QueryModel()));
             }
 
-            return null; // TODO
+            
         }
 
         public async Task<ActionResult> GetColumns(int id)
@@ -55,6 +83,37 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Controllers
             var items = table.Columns.Select(c => new ColumnsListViewModel(c, id)).ToList();
 
             return PartialView(new ListResult<ColumnsListViewModel>(items, items.Count(), new QueryModel()));
+        }
+
+        public async Task<ActionResult> Remove(int id, int tableid)
+        {
+            UnitOfWork.SetUser(User.Identity);
+
+            using (var tx = UnitOfWork.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                var table = await GetItemAsync(tableid);
+                var column = table.Columns.SingleOrDefault(c => c.Id == id);
+
+                if (column != null)
+                {
+                    table.Columns.Remove(column);
+
+                    UnitOfWork.Delete(column);
+
+                    await UnitOfWork.SaveChangesAsync();
+                }
+                else
+                {
+                    ViewBag.Errors = new List<string>() {"Nie można odnaleźć kolumny o id: " + id};
+                }
+                
+                table = await GetItemAsync(tableid);
+                var items = table.Columns.Select(c => new ColumnsListViewModel(c, tableid)).ToList();
+
+                tx.Commit();
+
+                return PartialView("GetColumns", new ListResult<ColumnsListViewModel>(items, items.Count(), new QueryModel()));
+            }
         }
     }
 }

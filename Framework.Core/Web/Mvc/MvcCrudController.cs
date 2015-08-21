@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Mvc;
+using System.Web.Razor.Tokenizer;
 using System.Web.Routing;
 using EvilDuck.Framework.Core.DataAccess;
 using EvilDuck.Framework.Entities;
@@ -227,6 +228,14 @@ namespace EvilDuck.Framework.Core.Web.Mvc
 
             var viewModel = new TViewModel();
             viewModel.FillFromEntity(entity);
+
+            var contextfullViewModel = viewModel as INeedDomainContext<TContext>;
+            if (contextfullViewModel != null)
+            {
+                var context = (TContext) Resolver.GetService(typeof (TContext));
+                contextfullViewModel.UseContext(context);
+            }
+            
 
             return viewModel;
         }

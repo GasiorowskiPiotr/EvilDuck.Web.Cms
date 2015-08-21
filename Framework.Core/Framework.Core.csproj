@@ -205,6 +205,7 @@
     <Compile Include="Web\FilterOper.cs" />
     <Compile Include="Web\IAmFilledFromEntity.cs" />
     <Compile Include="Web\IFillEntity.cs" />
+    <Compile Include="Web\INeedDomainContext.cs" />
     <Compile Include="Web\IValidatableViewModel.cs" />
     <Compile Include="Web\ListResult.cs" />
     <Compile Include="Web\Mvc\EvilDuckControllerFactory.cs" />

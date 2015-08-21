@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -67,8 +68,27 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Controllers
             return View(await PrepareEditorViewModel<EditTableViewModel>(vm.Id));
         }
 
-        
+        [HttpPost]
+        public async Task<ActionResult> Remove(int id)
+        {
+            await this.RemoveAsync(id);
 
+            var result = await GetItemsAsync(new QueryModel());
 
+            var items = result.Entities.Select(e => new TableListViewModel(e)).ToList();
+            if (Request.IsAjaxRequest())
+                return PartialView("Index", items);
+            return View("Index", items);
+        }
+
+        protected override void DisattachReferences(Table entity)
+        {
+            var toDelete = entity.Columns.ToList();
+            entity.Columns.Clear();
+            foreach (var column in toDelete)
+            {
+                UnitOfWork.Delete(column);
+            }
+        }
     }
 }

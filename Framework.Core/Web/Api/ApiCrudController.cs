@@ -2,6 +2,8 @@ using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using EvilDuck.Framework.Core.DataAccess;
@@ -60,6 +62,36 @@ namespace EvilDuck.Framework.Core.Web.Api
                 Logger.Info("Found {0} / {1} Entities.", items.Count, allCount);
             }
             return new ListResult<TEntity>(items, allCount, queryModel);
+        }
+
+        protected async Task<TViewModel> PrepareEditorViewModel<TViewModel>(TKey id) where TViewModel : EditEntityViewModel<TEntity, TKey>, new()
+        {
+            if (Logger.IsInfoEnabled)
+            {
+                Logger.Info("Preparing Editor ViewModel for entity with id: {0}.", id);
+            }
+            var entity = await Repository.GetByKeyAsync(id);
+            if (entity == null)
+            {
+                if (Logger.IsErrorEnabled)
+                {
+                    Logger.Error("Could not find entity with id: {0}", id);
+                }
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            var viewModel = new TViewModel();
+            viewModel.FillFromEntity(entity);
+
+            var contextfullViewModel = viewModel as INeedDomainContext<TContext>;
+            if (contextfullViewModel != null)
+            {
+                var context = (TContext)this.Request.GetDependencyScope().GetService(typeof (TContext));
+                contextfullViewModel.UseContext(context);
+            }
+
+
+            return viewModel;
         }
 
         protected virtual IQueryable<TEntity> OnFilter(IQueryable<TEntity> query, string filterField, string filterValue, FilterOper parse)

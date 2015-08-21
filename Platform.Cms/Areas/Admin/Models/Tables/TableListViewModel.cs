@@ -9,6 +9,7 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Models.Tables
         {
         }
 
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsExported { get; set; }
@@ -21,6 +22,7 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Models.Tables
             Description = entity.Caption;
             IsExported = entity.IsExported;
             ColumnCount = entity.Columns.Count;
+            Id = entity.Id;
         }
     }
 }

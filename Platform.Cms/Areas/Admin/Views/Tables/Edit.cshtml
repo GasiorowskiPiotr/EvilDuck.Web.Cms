@@ -6,6 +6,22 @@
     
 }
 
+<div class="modal" id="addModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Dodawanie kolumny</h4>
+            </div>
+            <div class="modal-body" id="modal-body">
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
+
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
@@ -20,10 +36,27 @@
         @Html.TextBoxFor(e => e.Caption, new { @class = "form-control" })
         @Html.ValidationMessageFor(e => e.Caption)
     </div>
-    <hr />
-    @Html.Action("GetColumns", "Columns", new { id = Model.Id});
-    <hr />
     <button class="btn btn-primary" type="submit">
         Zapisz
     </button>
+}
+
+<hr />
+<h4 style="display: inline-block">Kolumny</h4>&nbsp;
+<a data-toggle="modal" data-target="#addModal" href="#">
+    <span class="fa fa-plus"></span>&nbsp;Dodaj kolumnę
+</a>
+@Html.Action("GetColumns", "Columns", new { id = Model.Id })
+
+@section pagescripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $('#addModal').on('show.bs.modal', function (event) {
+                $('#modal-body').load('@Url.Action("AddColumn", "Columns", new { id = Model.Id})', '', function(html) {
+                    $.validator.unobtrusive.parse('#modal-body');
+                });
+            });
+        });
+    </script>
 }

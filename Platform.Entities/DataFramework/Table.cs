@@ -13,7 +13,7 @@ namespace EvilDuck.Platform.Entities.DataFramework
 
         public string Name { get; set; }
         public string Caption { get; set; }
-        public ICollection<Column> Columns { get; set; }
+        public virtual ICollection<Column> Columns { get; set; }
         public bool IsExported { get; set; }
     }
 }
