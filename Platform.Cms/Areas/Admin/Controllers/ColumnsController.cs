@@ -47,7 +47,6 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Controllers
                 var items = table.Columns.Select(c => new ColumnsListViewModel(c, vm.TableId)).ToList();
 
                 ViewBag.Errors = ModelState.SelectMany(e => e.Value.Errors).Select(e => e.ErrorMessage);
-
                 return PartialView("GetColumns", new ListResult<ColumnsListViewModel>(items, items.Count(), new QueryModel()));
             }
 

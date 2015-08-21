@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="DataAccess\PlatformDomainContext.cs" />
     <Compile Include="DataAccess\PlatformUnitOfWork.cs" />
+    <Compile Include="DataFramework\Cache\TablesCache.cs" />
     <Compile Include="DataFramework\Logic\TableComponent.cs" />
     <Compile Include="DataFramework\Repositories\TablesRepository.cs" />
     <Compile Include="PlaformMigrations\201508211348267_initial.cs" />
@@ -150,9 +151,7 @@
       <DependentUpon>201508032056529_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataFramework\Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
