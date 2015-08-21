@@ -28,6 +28,7 @@ namespace EvilDuck.Platform.Core
             builder.RegisterType<ApplicationSignInManager>().As<ApplicationSignInManager>().InstancePerRequest();
 
             builder.RegisterEntityRepository<TablesRepository, PlatformDomainContext, Table, int>();
+            builder.RegisterEntityRepository<QueriesRepository, PlatformDomainContext, Query, int>();
             builder.RegisterType<TableComponentFactory>().AsSelf().InstancePerRequest();
         }
     }

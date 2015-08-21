@@ -1,0 +1,62 @@
+﻿@model String
+
+<button type="button" class="btn-flat filter-string-button">
+    <i class="fa fa-filter" @if (ViewBag.QueryModel.FilterField != Model) { @: style="opacity: 0.5"
+                                                                                                  }></i>
+</button>
+<div class="filter-string" style="display: none;">
+    <div>
+        @using (Ajax.BeginForm("Index", new AjaxOptions()
+                            {
+                                HttpMethod = "GET",
+                                InsertionMode = InsertionMode.Replace,
+                                UpdateTargetId = "grid-container",
+                                OnSuccess = "lopor.reloadGrid()"
+                            }))
+        {
+            <input type="hidden" name="FilterField" value="@Model" />
+            <select class="form-control" name="FilterOper">
+                <option @if (ViewBag.QueryModel.FilterOper == "StrEqual" && ViewBag.QueryModel.FilterField == Model) { @: selected="selected"
+                                                                                                                    } value="StrEqual">
+                    Równe
+                </option>
+
+                <option @if (ViewBag.querymodel.FilterOper == "StartsWith" && ViewBag.QueryModel.FilterField == Model) { @: selected="selected"
+                                                                                                                    } value="StartsWith">
+                    Zaczyna się od
+                </option>
+                <option @if (ViewBag.QueryModel.FilterOper == "EndsWith" && ViewBag.QueryModel.FilterField == Model) { @: selected="selected"
+                                                                                                                    } value="EndsWith">
+                    Kończy się na
+                </option>
+                <option @if (ViewBag.QueryModel.FilterOper == "Contains" && ViewBag.QueryModel.FilterField == Model) { @: selected="selected"
+                                                                                                                    } value="Contains">
+                    Zawiera
+                </option>
+            </select>
+            <input type="text" name="FilterValue" @if (ViewBag.QueryModel.FilterField == Model) { @: value="@ViewBag.QueryModel.FilterValue"
+                                                                                                                               } class="form-control" />
+            <input type="submit" class="btn btn-default" value="Filtruj" />
+
+        }
+        @if (ViewBag.QueryModel.FilterField == Model)
+        {
+            using (Ajax.BeginForm("Index", new AjaxOptions
+            {
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "grid-container",
+                OnSuccess = "lopor.reloadGrid()"
+            }))
+            {
+                <input type="hidden" name="Take" value="@ViewBag.QueryModel.Take" />
+                <input type="hidden" name="Skip" value="0" />
+                <input type="submit" class="btn btn-default" value="Wyczyść" />
+            }
+        }
+    </div>
+</div>
+
+
+
+

@@ -197,10 +197,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ColumnsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QueriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\SystemParametersController.cs" />
     <Compile Include="Areas\Admin\Controllers\TablesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Admin\Models\Queries\QueryListViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Roles\AddRoleViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Roles\RoleListViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Tables\AddTableViewModel.cs" />
@@ -229,6 +231,12 @@
     <Content Include="Content\admin\AdminLTE.css" />
     <Content Include="Content\admin\Site.css" />
     <Content Include="Content\admin\skin-blue.min.css" />
+    <Content Include="Content\admin\styles.css">
+      <DependentUpon>styles.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\admin\styles.min.css">
+      <DependentUpon>styles.css</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -270,11 +278,18 @@
     <Content Include="Areas\Admin\Views\Tables\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Columns\GetColumns.cshtml" />
     <Content Include="Areas\Admin\Views\Columns\AddColumn.cshtml" />
+    <Content Include="Areas\Admin\Views\Queries\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Pager.cshtml" />
+    <Content Include="Content\admin\styles.scss" />
+    <Content Include="Content\admin\styles.css.map">
+      <DependentUpon>styles.css</DependentUpon>
+    </Content>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\admin\app.js" />
+    <Content Include="Scripts\admin\evilduck.jquery.js" />
     <Content Include="Scripts\apps\Readme.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -333,6 +348,11 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="Views\Shared\_GridHeader.cshtml" />
+    <Content Include="Views\Shared\_GridDateTimeFilter.cshtml" />
+    <Content Include="Views\Shared\_GridEnumFilter.cshtml" />
+    <Content Include="Views\Shared\_GridNumberFilter.cshtml" />
+    <Content Include="Views\Shared\_GridStringFilter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

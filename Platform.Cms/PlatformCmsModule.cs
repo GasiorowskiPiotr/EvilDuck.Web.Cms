@@ -18,6 +18,7 @@ namespace EvilDuck.Platform.Cms
             builder.RegisterType<UsersController>().InstancePerRequest();
             builder.RegisterType<RolesController>().InstancePerRequest();
             builder.RegisterType<TablesController>().InstancePerRequest();
+            builder.RegisterType<QueriesController>().InstancePerRequest();
             builder.RegisterUnitOfWork<PlatformUnitOfWork, PlatformDomainContext>();
             builder.RegisterDomainContext<PlatformDomainContext>();
         }

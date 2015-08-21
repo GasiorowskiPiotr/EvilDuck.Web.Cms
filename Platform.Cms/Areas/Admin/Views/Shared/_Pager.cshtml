@@ -1,0 +1,23 @@
+﻿@using EvilDuck.Framework.Core.Web.Mvc
+<div style="margin-left: auto; margin-right: auto">
+    @Html.EvilDuck().Pager(ViewBag.QueryModel, ViewBag.AllCount, "tables")
+
+    <div class="pull-right">
+        <span>Ilość elementów na stronie: </span>
+        <select id="page-size" class="form-control" style="display: inline-block; width: initial">
+            <option @if (ViewBag.QueryModel.Take == 10) {  @: selected="selected"
+                                                                                                                        } value="@Url.Action("Index", ViewBag.QueryModel.Alter(skip: 0, take: 10))">
+                10
+            </option>
+            <option @if (ViewBag.QueryModel.Take == 20) {   @: selected="selected"
+                                                                                                                        } value="@Url.Action("Index", ViewBag.QueryModel.Alter(skip: 0, take: 20))">
+                20
+            </option>
+
+            <option @if (ViewBag.QueryModel.Take == 50) {   @: selected="selected"
+                                                                                                                        } value="@Url.Action("Index", ViewBag.QueryModel.Alter(skip: 0, take: 50))">
+                50
+            </option>
+        </select>
+    </div>
+</div>

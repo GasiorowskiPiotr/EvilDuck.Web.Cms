@@ -1,0 +1,18 @@
+﻿@model EvilDuck.Framework.Core.Web.Mvc.GridHeaderModel
+
+@Ajax.ActionLink(Model.Caption, "Index", (object)ViewBag.QueryModel.Alter(skip: 0, orderBy: Model.ColumnName, orderDir: ViewBag.QueryModel.OrderDir == 0 ? -1 : -1 * ViewBag.QueryModel.OrderDir),
+                        new AjaxOptions
+                        {
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "tables",
+                            OnSuccess = "evilduck.reloadGrid()"
+                        })
+@if (ViewBag.QueryModel.OrderBy == Model.ColumnName && ViewBag.QueryModel.OrderDir == 1)
+{
+    <i class="fa fa-sort-up"></i>
+}
+else if (ViewBag.QueryModel.OrderBy == Model.ColumnName && ViewBag.QueryModel.OrderDir == -1)
+{
+    <i class="fa fa-sort-down"></i>
+}

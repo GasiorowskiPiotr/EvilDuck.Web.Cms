@@ -1,0 +1,43 @@
+﻿@model String
+<button type="button" class="btn-flat filter-datetime-button">
+    <i class="fa fa-filter" @if (ViewBag.QueryModel.FilterField != Model) { @: style="opacity: 0.5"
+                                                                                                            }></i>
+</button>
+<div class="filter-datetime" style="display: none;">
+    <div>
+        @using (Ajax.BeginForm("Index", new AjaxOptions()
+                            {
+                                HttpMethod = "GET",
+                                InsertionMode = InsertionMode.Replace,
+                                UpdateTargetId = "tables",
+                                OnSuccess = "evilduck.reloadGrid()"
+                            }))
+        {
+            <input type="hidden" name="FilterField" value="@Model" />
+            <select class="form-control" name="FilterOper">
+                <option @if (ViewBag.QueryModel.FilterOper == "Equal" && ViewBag.QueryModel.FilterField == Model) { @: selected="selected"
+                                                } value="Equal">
+                    Równe
+                </option>
+                <option @if (ViewBag.QueryModel.FilterOper == "GreaterThen" && ViewBag.QueryModel.FilterField == Model) { @: selected="selected"
+                                                } value="GreaterThen">
+                    Później niż
+                </option>
+                <option @if (ViewBag.QueryModel.FilterOper == "LessThen" && ViewBag.QueryModel.FilterField == Model) { @: selected="selected"
+                                                } value="LessThen">
+                    Wcześnij niż
+                </option>
+            </select>
+            <div class='input-group date'>
+                <input type='text' class="form-control" name="FilterValue" @if (ViewBag.QueryModel.FilterField == Model) {  @: value="@ViewBag.QueryModel.FilterValue"
+                                                                                                      } />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+            <input type="submit" class="btn btn-default" value="Filtruj" />
+        }
+    </div>
+</div>
+
+

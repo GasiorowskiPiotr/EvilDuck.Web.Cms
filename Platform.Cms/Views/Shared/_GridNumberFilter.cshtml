@@ -1,0 +1,52 @@
+﻿@model String
+
+<button type="button" class="btn-flat filter-number-button">
+    <i class="fa fa-filter" @if (ViewBag.QueryModel.FilterField != Model) { @: style="opacity: 0.5"
+                                                                                                     }></i>
+</button>
+<div class="filter-number" style="display: none;">
+    <div>
+        @using (Ajax.BeginForm("Index", new AjaxOptions()
+                            {
+                                HttpMethod = "GET",
+                                InsertionMode = InsertionMode.Replace,
+                                UpdateTargetId = "grid-container",
+                                OnSuccess = "lopor.reloadGrid()"
+                            }))
+        {
+            <input type="hidden" name="FilterField" value="@Model" />
+            <select class="form-control" name="FilterOper">
+                <option @if (ViewBag.QueryModel.FilterOper == "Equal" && ViewBag.QueryModel.FilterField == Model) { @: selected="selected"
+                                                                                            } value="Equal">
+                    Równe
+                </option>
+
+                <option @if (ViewBag.querymodel.FilterOper == "NotEqual" && ViewBag.QueryModel.FilterField == Model) { @: selected="selected"
+                                                                                            } value="NotEqual">
+                    Różne od
+                </option>
+                <option @if (ViewBag.QueryModel.FilterOper == "GreaterThen" && ViewBag.QueryModel.FilterField == Model) { @: selected="selected"
+                                                                                            } value="GreaterThen">
+                    Większe od
+                </option>
+                <option @if (ViewBag.QueryModel.FilterOper == "GreaterThenOrEqual" && ViewBag.QueryModel.FilterField == Model) { @: selected="selected"
+                                                                                            } value="GreaterThenOrEqual">
+                    Większe lub równe
+                </option>
+                <option @if (ViewBag.QueryModel.FilterOper == "LessThen" && ViewBag.QueryModel.FilterField == Model) { @: selected="selected"
+                                                                                            } value="LessThen">
+                    Mniejsze
+                </option>
+                <option @if (ViewBag.QueryModel.FilterOper == "LessThenOrEqual" && ViewBag.QueryModel.FilterField == Model) { @: selected="selected"
+                                                                                            } value="LessThenOrEqual">
+                    Mniejsze lub równe
+                </option>
+            </select>
+            <input type="text" name="FilterValue" @if (ViewBag.QueryModel.FilterField == Model) { @: value="@ViewBag.QueryModel.FilterValue"
+                                                                                                            } class="form-control" />
+            <input type="submit" class="btn btn-default" value="Filtruj" />
+        }
+    </div>
+</div>
+
+

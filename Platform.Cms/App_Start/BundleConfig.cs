@@ -13,13 +13,15 @@ namespace EvilDuck.Platform.Cms
                 "~/Scripts/jquery.validate.unobtrusive.js",
                 "~/Scripts/jquery.unobtrusive-ajax.js",
                 "~/Scripts/bootstrap.min.js",
-                "~/Scripts/admin/app.js"));
+                "~/Scripts/admin/app.js",
+                "~/Scripts/admin/evilduck.jquery.js"));
 
             bundles.Add(new StyleBundle("~/css/admin").Include(
                 "~/Content/css/font-awesome.css",
                 "~/Content/bootstrap.min.css",
                 "~/Content/admin/AdminLTE.css",
                 "~/Content/admin/skin-blue.min.css",
+                "~/Content/admin/styles.css",
                 "~/Content/Site.css"));
         }
     }

@@ -1,0 +1,24 @@
+﻿@using EvilDuck.Framework.Core.Web.Mvc
+@model EvilDuck.Framework.Core.Web.Mvc.EnumFilterModel
+
+<button type="button" class="btn-flat filter-enum-button">
+    <i class="fa fa-filter" @if (ViewBag.QueryModel.FilterField != Model.Property) { @: style="opacity: 0.5"
+                                                                                                            }></i>
+</button>
+<div class="filter-enum" style="display: none;">
+    <div>
+        @using (Ajax.BeginForm("Index", new AjaxOptions()
+                            {
+                                HttpMethod = "GET",
+                                InsertionMode = InsertionMode.Replace,
+                                UpdateTargetId = "grid-container",
+                                OnSuccess = "lopor.reloadGrid()"
+                            }))
+        {
+            <input type="hidden" name="FilterField" value="@Model.Property" />
+            <input type="hidden" name="FilterOper" value="Equal" />
+            @Html.DropDownList("FilterValue", Html.EvilDuck().EnumToSelectList(Model.EnumType, Model.Property, ViewBag.QueryModel.FilterField == Model.Property ? int.Parse((string)ViewBag.QueryModel.FilterValue) : 0), new { @class = "form-control" })
+            <input type="submit" class="btn btn-default" value="Filtruj" />
+        }
+    </div>
+</div>

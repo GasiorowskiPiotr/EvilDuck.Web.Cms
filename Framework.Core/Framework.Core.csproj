@@ -209,7 +209,9 @@
     <Compile Include="Web\INeedDomainContext.cs" />
     <Compile Include="Web\IValidatableViewModel.cs" />
     <Compile Include="Web\ListResult.cs" />
+    <Compile Include="Web\Mvc\EnumFilterModel.cs" />
     <Compile Include="Web\Mvc\EvilDuckControllerFactory.cs" />
+    <Compile Include="Web\Mvc\GridHeaderModel.cs" />
     <Compile Include="Web\Mvc\HtmlHelperEx.cs" />
     <Compile Include="Web\Mvc\JsonNetResult.cs" />
     <Compile Include="Web\Mvc\MvcCrudController.cs" />

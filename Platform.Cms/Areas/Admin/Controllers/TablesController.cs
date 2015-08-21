@@ -28,6 +28,7 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Controllers
 
         public async Task<ActionResult> Index(QueryModel queryModel)
         {
+            queryModel.Take = 1000;
             var result = await GetItemsAsync(queryModel);
             ViewBag.QueryModel = result.QueryModel;
             ViewBag.AllCount = result.AllCount;
