@@ -42,6 +42,9 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Models.Tables
         [DisplayName("Autoinkrementowanie klucza głównego")]
         public bool AutoincrementKey { get; set; }
 
+        [DisplayName("Wymagana?")]
+        public bool IsRequired { get; set; }
+
         public int TableId { get; set; }
 
         public IDictionary<string, string> AvailableTables { get; set; }
@@ -66,6 +69,7 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Models.Tables
             entity.RelationTable = RelationTable;
             entity.IsKey = IsKey;
             entity.AutoincrementKey = AutoincrementKey;
+            entity.IsRequired = IsRequired;
         }
 
         public override void Validate(ModelStateDictionary modelState)

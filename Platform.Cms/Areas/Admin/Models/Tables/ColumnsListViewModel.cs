@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using EvilDuck.Framework.Core.Web;
+﻿using EvilDuck.Framework.Core.Web;
 using EvilDuck.Platform.Entities.DataFramework;
 
 namespace EvilDuck.Platform.Cms.Areas.Admin.Models.Tables
@@ -18,6 +14,7 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Models.Tables
         public string RelationTable { get; set; }
         public bool IsKey { get; set; }
         public bool AutoincrementKey { get; set; }
+        public bool IsRequired { get; set; }
 
         public int TableId { get; set; }
         public int ColumnId { get; set; }
@@ -39,6 +36,7 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Models.Tables
             IsKey = entity.IsKey;
             AutoincrementKey = entity.AutoincrementKey;
             ColumnId = entity.Id;
+            IsRelation = entity.IsRequired;
         }
     }
 }

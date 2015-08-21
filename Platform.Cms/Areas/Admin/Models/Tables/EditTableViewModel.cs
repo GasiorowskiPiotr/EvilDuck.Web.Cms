@@ -17,10 +17,13 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Models.Tables
         [DisplayName("Nazwa")]
         public string Name { get; set; }
 
+        public bool IsExported { get; set; }
+
         protected override void FillFieldsFromEntity(Table entity)
         {
             Caption = entity.Caption;
             Name = entity.Name;
+            IsExported = entity.IsExported;
         }
 
         public override void FillEntity(Table entity)

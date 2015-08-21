@@ -26,6 +26,10 @@
         @Html.ValidationMessageFor(e => e.Type)
     </div>
     <div class="form-group">
+        @Html.LabelFor(e => e.IsRequired)
+        @Html.CheckBoxFor(e => e.IsRequired)
+    </div>
+    <div class="form-group" id="LengthGroup">
         @Html.LabelFor(e => e.Length)
         @Html.TextBoxFor(e => e.Length, new { @class = "form-control"})
     </div>
@@ -79,6 +83,16 @@
                 $('#AutoIncrementGroup').show();
             } else {
                 $('#AutoIncrementGroup').hide();
+            }
+        });
+
+        var typeField = $('#Type');
+        typeField.on('change', function () {
+            console.log(typeField.val());
+            if (typeField.val() == 0) {
+                $('#LengthGroup').show();
+            } else {
+                $('#LengthGroup').hide();
             }
         });
     });

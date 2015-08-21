@@ -188,6 +188,7 @@
     <Compile Include="Modularity\PluginAssemblyLoader.cs" />
     <Compile Include="Modularity\RegistrationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Result.cs" />
     <Compile Include="Security\ApplicationOAuthProvider.cs" />
     <Compile Include="Security\ChallengeResult.cs" />
     <Compile Include="Security\PrincipalExtensions.cs" />

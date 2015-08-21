@@ -13,7 +13,7 @@ namespace EvilDuck.Platform.Core.PlaformMigrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201508190917579_initial"; }
+            get { return "201508211348267_initial"; }
         }
         
         string IMigrationMetadata.Source

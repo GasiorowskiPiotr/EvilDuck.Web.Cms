@@ -6,6 +6,12 @@
     
 }
 
+@section actions {
+    @if (!Model.IsExported)
+    {
+        @Html.ActionLink("Eksportuj", "Export", new {id = Model.Id});
+    }
+}
 <div class="modal" id="addModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -43,9 +49,13 @@
 
 <hr />
 <h4 style="display: inline-block">Kolumny</h4>&nbsp;
-<a data-toggle="modal" data-target="#addModal" href="#">
-    <span class="fa fa-plus"></span>&nbsp;Dodaj kolumnę
-</a>
+@if (!Model.IsExported)
+{
+    <a data-toggle="modal" data-target="#addModal" href="#">
+        <span class="fa fa-plus"></span>&nbsp;Dodaj kolumnę
+    </a>
+}
+
 @Html.Action("GetColumns", "Columns", new { id = Model.Id })
 
 @section pagescripts

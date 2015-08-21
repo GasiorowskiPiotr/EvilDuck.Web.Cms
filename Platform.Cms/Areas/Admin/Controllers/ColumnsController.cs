@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using EvilDuck.Framework.Core.DataAccess;
 using EvilDuck.Framework.Core.Web;
@@ -104,7 +102,7 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Controllers
                 }
                 else
                 {
-                    ViewBag.Errors = new List<string>() {"Nie można odnaleźć kolumny o id: " + id};
+                    ViewBag.Errors = new List<string> {"Nie można odnaleźć kolumny o id: " + id};
                 }
                 
                 table = await GetItemAsync(tableid);

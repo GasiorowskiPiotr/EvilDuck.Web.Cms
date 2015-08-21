@@ -4,6 +4,7 @@ using Autofac;
 using EvilDuck.Framework.Core;
 using EvilDuck.Framework.Core.Modularity;
 using EvilDuck.Platform.Core.DataAccess;
+using EvilDuck.Platform.Core.DataFramework.Logic;
 using EvilDuck.Platform.Core.DataFramework.Repositories;
 using EvilDuck.Platform.Core.Security;
 using EvilDuck.Platform.Entities;
@@ -27,6 +28,7 @@ namespace EvilDuck.Platform.Core
             builder.RegisterType<ApplicationSignInManager>().As<ApplicationSignInManager>().InstancePerRequest();
 
             builder.RegisterEntityRepository<TablesRepository, PlatformDomainContext, Table, int>();
+            builder.RegisterType<TableComponentFactory>().AsSelf().InstancePerRequest();
         }
     }
 

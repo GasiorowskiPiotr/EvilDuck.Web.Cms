@@ -11,8 +11,8 @@ namespace EvilDuck.Platform.Entities.DataFramework
         public string DefaultValue { get; set; }
         public bool IsRelation { get; set; }
         public string RelationTable { get; set; }
-        public string RelationColumn { get; set; }
         public bool IsKey { get; set; }
         public bool AutoincrementKey { get; set; }
+        public bool IsRequired { get; set; }
     }
 }

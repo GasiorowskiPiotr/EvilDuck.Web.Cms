@@ -10,6 +10,7 @@ using EvilDuck.Framework.Core.Web;
 using EvilDuck.Framework.Core.Web.Mvc;
 using EvilDuck.Platform.Cms.Areas.Admin.Models.Tables;
 using EvilDuck.Platform.Core.DataAccess;
+using EvilDuck.Platform.Core.DataFramework.Logic;
 using EvilDuck.Platform.Core.DataFramework.Repositories;
 using EvilDuck.Platform.Entities.DataFramework;
 
@@ -18,9 +19,11 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Controllers
     [Authorize]
     public class TablesController : MvcCrudController<PlatformDomainContext, TablesRepository, Table,int>
     {
+        private readonly TableComponentFactory _tableComponentFactory;
         // GET: Admin/Tables
-        public TablesController(TablesRepository repository, IUnitOfWork<PlatformDomainContext> unitOfWork) : base(repository, unitOfWork)
+        public TablesController(TablesRepository repository, IUnitOfWork<PlatformDomainContext> unitOfWork, TableComponentFactory tableComponentFactory) : base(repository, unitOfWork)
         {
+            _tableComponentFactory = tableComponentFactory;
         }
 
         public async Task<ActionResult> Index(QueryModel queryModel)
@@ -61,6 +64,17 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Controllers
             return View(await PrepareEditorViewModel<EditTableViewModel>(id));
         }
 
+        public ActionResult Export(int id)
+        {
+            var component = _tableComponentFactory.CreateTableComponent(id);
+            var result = component.CreateDbTable();
+            if (result.IsSuccess)
+            {
+                return RedirectToAction("Edit", new {id});
+            }
+            return RedirectToAction("Index");
+        }
+            
         [HttpPost]
         public async Task<ActionResult> Edit(EditTableViewModel vm)
         {
