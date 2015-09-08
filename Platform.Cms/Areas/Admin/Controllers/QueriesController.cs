@@ -32,18 +32,41 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Controllers
 
         public ActionResult Add()
         {
-            throw new System.NotImplementedException();
+            return View(new AddQueryViewModel());
         }
 
         [HttpPost]
-        public ActionResult Remove(int id)
+        public ActionResult Add(AddQueryViewModel vm)
         {
-            throw new System.NotImplementedException();
+            Query query;
+            if (CreateFrom(vm, out query))
+            {
+                return RedirectToAction("Index");
+            }
+            return View(vm);
         }
 
-        public ActionResult Edit(int id)
+        [HttpPost]
+        public async Task<ActionResult> Remove(int id)
         {
-            throw new System.NotImplementedException();
+            await this.RemoveAsync(id);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> Edit(int id)
+        {
+            return View(await PrepareEditorViewModel<EditQueryViewModel>(id));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(EditQueryViewModel vm)
+        {
+            var query = await UpdateFromAsync(vm.Id, vm);
+            if (query == null)
+            {
+                return View(vm);
+            }
+            return RedirectToAction("Index");
         }
 
 

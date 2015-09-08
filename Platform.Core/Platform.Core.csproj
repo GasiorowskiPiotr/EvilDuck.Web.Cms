@@ -102,7 +102,15 @@
     <Compile Include="DataAccess\PlatformDomainContext.cs" />
     <Compile Include="DataAccess\PlatformUnitOfWork.cs" />
     <Compile Include="DataFramework\Cache\TablesCache.cs" />
+    <Compile Include="DataFramework\Logic\DbConnectionRequested.cs" />
+    <Compile Include="DataFramework\Logic\DbTableCreatedEventArgs.cs" />
+    <Compile Include="DataFramework\Logic\QueryComponent.cs" />
+    <Compile Include="DataFramework\Logic\QueryComponentFactory.cs" />
+    <Compile Include="DataFramework\Logic\QueryResult.cs" />
+    <Compile Include="DataFramework\Logic\QueryResultRow.cs" />
+    <Compile Include="DataFramework\Logic\SqlQueryParamsFinder.cs" />
     <Compile Include="DataFramework\Logic\TableComponent.cs" />
+    <Compile Include="DataFramework\Logic\TableComponentFactory.cs" />
     <Compile Include="DataFramework\Repositories\QueriesRepository.cs" />
     <Compile Include="DataFramework\Repositories\TablesRepository.cs" />
     <Compile Include="PlaformMigrations\201508211348267_initial.cs" />

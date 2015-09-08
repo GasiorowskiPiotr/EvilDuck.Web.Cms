@@ -1,81 +1,21 @@
 ﻿using System;
 using System.Data;
-using System.Data.Common;
 using System.Text;
 using EvilDuck.Framework.Core;
-using EvilDuck.Framework.Core.DataAccess;
-using EvilDuck.Platform.Core.DataAccess;
-using EvilDuck.Platform.Core.DataFramework.Repositories;
 using EvilDuck.Platform.Entities.DataFramework;
+using NLog;
 
 namespace EvilDuck.Platform.Core.DataFramework.Logic
 {
-    public class TableComponentFactory
-    {
-        private readonly TablesRepository _repository;
-        private readonly IUnitOfWork<PlatformDomainContext> _unitOfWork;
-        private readonly PlatformDomainContext _domainContext;
-
-        public TableComponentFactory(TablesRepository repository, IUnitOfWork<PlatformDomainContext> unitOfWork, PlatformDomainContext domainContext)
-        {
-            _repository = repository;
-            _unitOfWork = unitOfWork;
-            _domainContext = domainContext;
-        }
-
-        public TableComponent CreateTableComponent(int tableId)
-        {
-            using (var tx = _unitOfWork.BeginTransaction(IsolationLevel.ReadCommitted))
-            {
-                var table = _repository.GetByKey(tableId);
-                var component = new TableComponent(table);
-                component.DbConnectionRequested += component_DbConnectionRequested;
-                component.TableCreated += component_TableCreated;
-                return component;    
-            }
-            
-        }
-
-        void component_TableCreated(object sender, DbTableCreatedEventArgs e)
-        {
-            try
-            {
-                var table = _repository.GetByName(e.TableName);
-                table.IsExported = true;
-
-                _unitOfWork.SaveChanges();
-
-                e.ExternalOperationResults.Add(Result.Success("Tabela oznaczona jako wyeksportowana."));
-            }
-            catch (Exception ex)
-            {
-                e.ExternalOperationResults.Add(Result.Failure("Błąd w czasie zapisu tabeli", ex));
-            }
-
-        }
-
-        void component_DbConnectionRequested(object sender, DbConnectionRequested e)
-        {
-            e.Connection = _domainContext.Database.Connection;
-        }
-
-        public TableComponent CreateTableComponent(string tableName)
-        {
-            var table = _repository.GetByName(tableName);
-            var component = new TableComponent(table);
-            component.DbConnectionRequested += component_DbConnectionRequested;
-            component.TableCreated += component_TableCreated;
-            return component;
-        }
-    }
-
     public class TableComponent
     {
         private readonly Table _table;
+        private readonly Logger _logger;
 
         public TableComponent(Table table)
         {
             _table = table;
+            _logger = LogManager.GetLogger(typeof(TableComponent).FullName);
         }
 
         public Result CreateDbTable()
@@ -115,6 +55,7 @@ namespace EvilDuck.Platform.Core.DataFramework.Logic
             }
             catch (Exception ex)
             {
+                _logger.Error(ex, "Exception while creating table '{0}'", _table.Name);
                 return Result.Failure(String.Format("Błąd w czasie tworzenia tabeli: {0}.", _table.Name), ex);
             }
         }
@@ -157,10 +98,10 @@ namespace EvilDuck.Platform.Core.DataFramework.Logic
                     sb.Append("PRIMARY KEY ");
                 }
 
-                /*if (String.IsNullOrEmpty(column.DefaultValue))
+                if (String.IsNullOrEmpty(column.DefaultValue))
                 {
                     sb.AppendFormat("DEFAULT {0} ", column.DefaultValue);
-                }*/
+                }
 
                 if (column.IsRelation)
                 {
@@ -199,25 +140,5 @@ namespace EvilDuck.Platform.Core.DataFramework.Logic
                 dbConnReq(this, dbConnectionRequested);
             }
         }
-    }
-
-    public class DbTableCreatedEventArgs : EventArgs
-    {
-        public string TableName { get; private set; }
-        public Result CreationResult { get; private set; }
-
-        public ResultCollection ExternalOperationResults { get; private set; }
-
-        public DbTableCreatedEventArgs(string tableName, Result creationResult)
-        {
-            TableName = tableName;
-            CreationResult = creationResult;
-            ExternalOperationResults = new ResultCollection();
-        }
-    }
-
-    public class DbConnectionRequested : EventArgs
-    {
-        public DbConnection Connection { get; set; }
     }
 }

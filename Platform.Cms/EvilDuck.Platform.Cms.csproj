@@ -202,6 +202,8 @@
     <Compile Include="Areas\Admin\Controllers\SystemParametersController.cs" />
     <Compile Include="Areas\Admin\Controllers\TablesController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Admin\Models\Queries\AddQueryViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Queries\EditQueryViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Queries\QueryListViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Roles\AddRoleViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Roles\RoleListViewModel.cs" />
@@ -284,6 +286,8 @@
     <Content Include="Content\admin\styles.css.map">
       <DependentUpon>styles.css</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\Queries\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Queries\Edit.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
