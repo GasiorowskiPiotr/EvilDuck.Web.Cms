@@ -13,6 +13,7 @@ using EvilDuck.Platform.Entities.DataFramework;
 
 namespace EvilDuck.Platform.Cms.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class ColumnsController : MvcCrudController<PlatformDomainContext, TablesRepository, Table, int>
     {
         private readonly PlatformDomainContext _domainContext;

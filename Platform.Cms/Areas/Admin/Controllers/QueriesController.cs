@@ -16,6 +16,7 @@ using EvilDuck.Platform.Entities.DataFramework;
 
 namespace EvilDuck.Platform.Cms.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class QueriesController : MvcCrudController<PlatformDomainContext, QueriesRepository, Query, int>
     {
         private readonly QueryComponentFactory _queryComponentFactory;

@@ -16,7 +16,7 @@ using EvilDuck.Platform.Entities.DataFramework;
 
 namespace EvilDuck.Platform.Cms.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class TablesController : MvcCrudController<PlatformDomainContext, TablesRepository, Table,int>
     {
         private readonly TableComponentFactory _tableComponentFactory;
