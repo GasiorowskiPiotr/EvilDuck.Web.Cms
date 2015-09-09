@@ -1,0 +1,92 @@
+﻿@using EvilDuck.Framework.Core.Web.Mvc
+@model List<EvilDuck.Platform.Cms.Areas.Admin.Models.Repositories.RepositoriesListViewModel>
+
+@{
+    this.InitializeScreen("Lista zapytań");
+}
+
+@section actions
+{
+    <a href="@Url.Action("Add")">
+        <span class="fa fa-plus"></span>&nbsp;Dodaj
+    </a>
+}
+
+<div class="table-responsive no-padding" id="tables">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Akcje</th>
+                <th>
+                    @Html.Partial("_GridHeader", new GridHeaderModel("Name", "Nazwa"))
+                    @Html.Partial("_GridStringFilter", "Name")
+                </th>
+                <th>
+                    @Html.Partial("_GridHeader", new GridHeaderModel("Caption", "Tytuł"))
+                    @Html.Partial("_GridStringFilter", "Caption")
+                </th>
+                <th>
+                    @Html.Partial("_GridHeader", new GridHeaderModel("SelectQueryNames", "SELECT"))
+                    @Html.Partial("_GridStringFilter", "SelectQueryNames")
+                </th>
+                <th>
+                    @Html.Partial("_GridHeader", new GridHeaderModel("InsertQueryName", "INSERT"))
+                    @Html.Partial("_GridStringFilter", "InsertQueryName")
+                </th>
+                <th>
+                    @Html.Partial("_GridHeader", new GridHeaderModel("UpdateQueryName", "UPDATE"))
+                    @Html.Partial("_GridStringFilter", "UpdateQueryName")
+                </th>
+                <th>
+                    @Html.Partial("_GridHeader", new GridHeaderModel("DeleteQueryName", "DELETE"))
+                    @Html.Partial("_GridStringFilter", "DeleteQueryName")
+                </th>
+                <th>
+                    @Html.Partial("_GridHeader", new GridHeaderModel("CreatedOn", "Utworzony"))
+                </th>
+                <th>
+                    @Html.Partial("_GridHeader", new GridHeaderModel("LastUpdatedBy", "Zmieniony przez"))
+                </th>
+                <th>
+                    @Html.Partial("_GridHeader", new GridHeaderModel("LastUpdatedOn", "Zmieniony"))
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="11">Brak danych</td>
+                </tr>
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Ajax.ActionLink("Usuń", "Remove", new { @item.Id }, new AjaxOptions()
+                        {
+                            HttpMethod = "POST",
+                            UpdateTargetId = "tables",
+                            InsertionMode = InsertionMode.Replace
+                        }) |
+                        @Html.ActionLink("Edytuj", "Edit", new { @item.Id })
+                    </td>
+                    <td>@item.Name</td>
+                    <td>@item.Caption</td>
+                    <td>@item.SelectQueryNames</td>
+                    <td>@item.InsertQueryName</td>
+                    <td>@item.UpdateQueryName</td>
+                    <td>@item.DeleteQueryName</td>
+                    <td>@item.CreatedBy</td>
+                    <td>@item.CreatedOn</td>
+                    <td>@item.LastUpdatedBy</td>
+                    <td>@item.LastUpdatedOn</td>
+                </tr>
+            }
+        </tbody>
+
+
+
+    </table>
+    @Html.Partial("_Pager")
+</div>

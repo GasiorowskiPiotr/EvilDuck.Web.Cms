@@ -138,6 +138,12 @@ namespace EvilDuck.Framework.Core.Web.Mvc
                 {
                     Logger.Warn("Validation failed: {0}", JsonConvert.SerializeObject(ModelState));
                 }
+                var contextfullViewModel = viewModel as INeedDomainContext<TContext>;
+                if (contextfullViewModel != null)
+                {
+                    var context = (TContext)Resolver.GetService(typeof(TContext));
+                    contextfullViewModel.UseContext(context);
+                }
                 return null;
             }
 
@@ -240,6 +246,25 @@ namespace EvilDuck.Framework.Core.Web.Mvc
             return viewModel;
         }
 
+        protected async Task<TViewModel> PrepareCreatorViewModel<TViewModel>()
+            where TViewModel : CreateEntityViewModel<TEntity>, new()
+        {
+            if (Logger.IsInfoEnabled)
+            {
+                Logger.Info("Preparing Creator ViewModel.");
+            }
+
+            var viewModel = new TViewModel();
+            var contextfullViewModel = viewModel as INeedDomainContext<TContext>;
+            if (contextfullViewModel != null)
+            {
+                var context = (TContext)Resolver.GetService(typeof(TContext));
+                contextfullViewModel.UseContext(context);
+            }
+
+            return viewModel;
+        } 
+
         protected async Task<TEntity> UpdateFromAsync<TViewModel>(TKey entityKey, TViewModel viewModel) where TViewModel : EditEntityViewModel<TEntity, TKey>
         {
             if (Logger.IsInfoEnabled)
@@ -256,6 +281,12 @@ namespace EvilDuck.Framework.Core.Web.Mvc
                 if (Logger.IsWarnEnabled)
                 {
                     Logger.Warn("Validation failed: {0}", JsonConvert.SerializeObject(ModelState));
+                }
+                var contextfullViewModel = viewModel as INeedDomainContext<TContext>;
+                if (contextfullViewModel != null)
+                {
+                    var context = (TContext)Resolver.GetService(typeof(TContext));
+                    contextfullViewModel.UseContext(context);
                 }
                 return null;
             }

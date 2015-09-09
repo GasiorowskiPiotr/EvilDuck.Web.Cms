@@ -8,10 +8,10 @@ namespace EvilDuck.Platform.Entities.DataFramework
         public string Name { get; set; }
         public string Caption { get; set; }
 
-        public Table Table { get; set; }
-        public ICollection<Query> SelectQueries { get; set; }
-        public Query InsertQuery { get; set; }
-        public Query UpdateQuery { get; set; }
-        public Query DeleteQuery { get; set; }
+        public virtual Table Table { get; set; }
+        public virtual ICollection<Query> SelectQueries { get; set; }
+        public virtual Query InsertQuery { get; set; }
+        public virtual Query UpdateQuery { get; set; }
+        public virtual Query DeleteQuery { get; set; }
     }
 }

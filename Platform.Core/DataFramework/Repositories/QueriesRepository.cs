@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using EvilDuck.Framework.Core.DataAccess;
 using EvilDuck.Platform.Core.DataAccess;
 using EvilDuck.Platform.Entities.DataFramework;
@@ -9,6 +11,11 @@ namespace EvilDuck.Platform.Core.DataFramework.Repositories
     {
         public QueriesRepository(PlatformDomainContext context, Logger logger) : base(context, logger)
         {
+        }
+
+        public ICollection<Query> GetManyByKey(IEnumerable<int> selectQueries)
+        {
+            return AdHocQuery().Where(e => selectQueries.Contains(e.Id)).ToList();
         }
     }
 }

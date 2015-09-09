@@ -198,6 +198,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ColumnsController.cs" />
     <Compile Include="Areas\Admin\Controllers\QueriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RepositoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\SystemParametersController.cs" />
     <Compile Include="Areas\Admin\Controllers\TablesController.cs" />
@@ -207,6 +208,9 @@
     <Compile Include="Areas\Admin\Models\Queries\QueryListViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Queries\QueryValidationResultViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Queries\ValidateQueryViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Repositories\CreateRepositoryViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Repositories\EditRepositoryViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Repositories\RepositoriesListViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Roles\AddRoleViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Roles\RoleListViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Tables\AddTableViewModel.cs" />
@@ -292,6 +296,9 @@
     <Content Include="Areas\Admin\Views\Queries\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Queries\Validate.cshtml" />
     <Content Include="Areas\Admin\Views\Queries\QueryValidationResult.cshtml" />
+    <Content Include="Areas\Admin\Views\Repositories\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Repositories\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Repositories\Edit.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

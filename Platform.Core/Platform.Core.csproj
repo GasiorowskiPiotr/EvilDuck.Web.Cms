@@ -112,6 +112,7 @@
     <Compile Include="DataFramework\Logic\TableComponent.cs" />
     <Compile Include="DataFramework\Logic\TableComponentFactory.cs" />
     <Compile Include="DataFramework\Repositories\QueriesRepository.cs" />
+    <Compile Include="DataFramework\Repositories\RepositoriesRepository.cs" />
     <Compile Include="DataFramework\Repositories\TablesRepository.cs" />
     <Compile Include="PlaformMigrations\201508211348267_initial.cs" />
     <Compile Include="PlaformMigrations\201508211348267_initial.Designer.cs">
