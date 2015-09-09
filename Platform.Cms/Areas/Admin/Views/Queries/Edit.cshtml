@@ -29,7 +29,38 @@
         Zapisz
     </button>
     @:&nbsp; | &nbsp;
+    <a data-toggle ="modal" data-target="#addModal" href="#">
+        Waliduj
+    </a>
+    @:&nbsp; | &nbsp;
     <a href="@Url.Action("Index")">
         Wróć
     </a>
+}
+
+<div class="modal" id="addModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Walidacja zapytania</h4>
+            </div>
+            <div class="modal-body" id="modal-body">
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+@section pagescripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $('#addModal').on('show.bs.modal', function () {
+                $('#modal-body').load('@Url.Action("Validate", "Queries", new { id = Model.Id})', '', function () {
+                    $.validator.unobtrusive.parse('#modal-body');
+                });
+            });
+        });
+    </script>
 }

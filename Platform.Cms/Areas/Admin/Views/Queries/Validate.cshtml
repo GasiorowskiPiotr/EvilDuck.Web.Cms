@@ -1,0 +1,23 @@
+﻿@model EvilDuck.Platform.Cms.Areas.Admin.Models.Queries.ValidateQueryViewModel
+
+<div id="queryResult">
+    
+</div>
+
+@using (Ajax.BeginForm(new AjaxOptions
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "queryResult"
+}))
+{
+    @Html.HiddenFor(e => e.QueryId)
+    foreach (var field in Model.ParameterNames)
+    {
+        <div class="form-group">
+            @Html.Label(field)
+            @Html.TextBox("Parameters." + field, ((IDictionary<string, object>)Model.Parameters)[field], new { @class = "form-control" })
+        </div>
+    }
+    <button class="btn btn-primary">Testuj</button>
+}

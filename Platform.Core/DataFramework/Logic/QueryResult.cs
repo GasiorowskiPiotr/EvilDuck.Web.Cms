@@ -32,5 +32,13 @@ namespace EvilDuck.Platform.Core.DataFramework.Logic
         {
             get { return _rows; }
         }
+
+        public static QueryResult Empty
+        {
+            get
+            {
+                return new QueryResult(Enumerable.Empty<QueryResultRow>());
+            }
+        }
     }
 }

@@ -1,0 +1,45 @@
+﻿@model EvilDuck.Platform.Cms.Areas.Admin.Models.Queries.QueryValidationResultViewModel
+
+@{
+    var validationClass = Model.IsSuccess ? "alert-success" : "alert-danger";
+    var validationIconClass = Model.IsSuccess ? "fa-check" : "fa-warning";
+}
+
+<div class="alert @validationClass">
+    <h4>
+        <i class="icon fa @validationIconClass"></i>
+        Rezultat walidacji
+    </h4>
+    @Model.Message
+</div>
+
+<div style="overflow: auto; width: 100%">
+    @if (Model.Data != null)
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    @foreach (var columnName in Model.Data.ColumnNames)
+                    {
+                        <th>@columnName</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var row in Model.Data.Rowses)
+                {
+                    <tr>
+
+                        @foreach (var cell in row.ColumnNames)
+                        {
+                            <td>
+                                @row[cell]
+                            </td>
+                        }
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

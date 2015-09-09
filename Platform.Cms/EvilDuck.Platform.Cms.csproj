@@ -205,6 +205,8 @@
     <Compile Include="Areas\Admin\Models\Queries\AddQueryViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Queries\EditQueryViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Queries\QueryListViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Queries\QueryValidationResultViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\Queries\ValidateQueryViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Roles\AddRoleViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Roles\RoleListViewModel.cs" />
     <Compile Include="Areas\Admin\Models\Tables\AddTableViewModel.cs" />
@@ -288,6 +290,8 @@
     </Content>
     <Content Include="Areas\Admin\Views\Queries\Add.cshtml" />
     <Content Include="Areas\Admin\Views\Queries\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Queries\Validate.cshtml" />
+    <Content Include="Areas\Admin\Views\Queries\QueryValidationResult.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

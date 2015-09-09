@@ -26,6 +26,7 @@
     <div class="form-group">
         @Html.LabelFor(e => e.QueryText)
         @Html.TextAreaFor(e => e.QueryText, new { @class = "form-control" })
+        <a href="#" data-toggle="modal" data-target="#validationModal"></a>
         @Html.ValidationMessageFor(e => e.QueryText)
     </div>
     <hr />
@@ -33,3 +34,5 @@
         Zapisz
     </button>
 }
+
+
