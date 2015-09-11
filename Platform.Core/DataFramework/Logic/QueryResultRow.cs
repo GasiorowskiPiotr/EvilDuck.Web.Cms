@@ -18,5 +18,10 @@ namespace EvilDuck.Platform.Core.DataFramework.Logic
             get { return _fields.Keys; }
         }
 
+        public IDictionary<string, object> Fields
+        {
+            get { return _fields; }
+        }
+
     }
 }

@@ -36,7 +36,7 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Models.Tables
             IsKey = entity.IsKey;
             AutoincrementKey = entity.AutoincrementKey;
             ColumnId = entity.Id;
-            IsRelation = entity.IsRequired;
+            IsRequired = entity.IsRequired;
         }
     }
 }

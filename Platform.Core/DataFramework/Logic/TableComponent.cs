@@ -98,7 +98,7 @@ namespace EvilDuck.Platform.Core.DataFramework.Logic
                     sb.Append("PRIMARY KEY ");
                 }
 
-                if (String.IsNullOrEmpty(column.DefaultValue))
+                if (!String.IsNullOrEmpty(column.DefaultValue))
                 {
                     sb.AppendFormat("DEFAULT {0} ", column.DefaultValue);
                 }

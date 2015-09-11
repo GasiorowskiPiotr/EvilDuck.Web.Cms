@@ -89,7 +89,7 @@
                         <li class="@Html.EvilDuck().ActiveMenuItem("SystemParameters")">
                             <a href="@Url.Action("Index", "SystemParameters")/"><i class="fa fa-sliders"></i><span>Parametry Systemowe</span></a>
                         </li>
-                        <li class="treeview @Html.EvilDuck().ActiveMenuItem("Tables", "Queries")">
+                        <li class="treeview @Html.EvilDuck().ActiveMenuItem("Tables", "Queries", "Repositories")">
                             <a href="#">
                                 <i class="fa fa-database"></i> <span>Źródła danych</span> <i class="fa fa-angle-left pull-right"></i>
                             </a>
@@ -99,6 +99,9 @@
                                 </li>
                                 <li class="@Html.EvilDuck().ActiveMenuItem("Queries")">
                                     <a href="@Url.Action("Index", "Queries")"><i class="fa fa-file-text-o"></i><span>Zapytania</span></a>
+                                </li>
+                                <li class="@Html.EvilDuck().ActiveMenuItem("Queries")">
+                                    <a href="@Url.Action("Index", "Repositories")"><i class="fa fa-archive"></i><span>Repozytoria</span></a>
                                 </li>
                             </ul>
                         </li>

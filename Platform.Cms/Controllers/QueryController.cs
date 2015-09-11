@@ -30,7 +30,8 @@ namespace EvilDuck.Platform.Cms.Controllers
             {
                 Description = e.Caption,
                 Name = e.Name,
-                QueryType = e.Type
+                QueryType = e.Type,
+                Parameters = e.QueryParams
             }).ToListAsync();
 
             return Ok(queries);
@@ -49,6 +50,10 @@ namespace EvilDuck.Platform.Cms.Controllers
 
             if (result.IsSuccess)
             {
+                if (queryResult != null)
+                {
+                    return Ok(queryResult);
+                }
                 return Ok(result.Message);
             }
             return BadRequest(result.Message);

@@ -47,12 +47,13 @@ namespace EvilDuck.Platform.Core.DataFramework.Logic
         {
             try
             {
-                using (var tx = _domainContext.Database.Connection.BeginTransaction())
+                if (_domainContext.Database.Connection.State != ConnectionState.Open)
                 {
-                    if (_domainContext.Database.Connection.State != ConnectionState.Open)
-                    {
-                        _domainContext.Database.Connection.Open();
-                    }
+                    _domainContext.Database.Connection.Open();
+                }
+
+                using (var tx = _domainContext.Database.Connection.BeginTransaction())
+                {    
                     var cmd = _domainContext.Database.Connection.CreateCommand();
                     cmd.Transaction = tx;
                     cmd.CommandText = _query.QueryText;

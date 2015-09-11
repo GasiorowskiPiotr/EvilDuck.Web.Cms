@@ -11,5 +11,6 @@ namespace EvilDuck.Platform.Cms.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public QueryType QueryType { get; set; }
+        public string Parameters { get; set; }
     }
 }

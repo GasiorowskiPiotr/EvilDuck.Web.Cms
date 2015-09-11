@@ -66,7 +66,7 @@ namespace EvilDuck.Platform.Cms.Areas.Admin.Models.Tables
             entity.Length = Length;
             entity.DefaultValue = DefaultValue;
             entity.IsRelation = IsRelation;
-            entity.RelationTable = RelationTable;
+            entity.RelationTable = IsRelation ? RelationTable : null;
             entity.IsKey = IsKey;
             entity.AutoincrementKey = AutoincrementKey;
             entity.IsRequired = IsRequired;

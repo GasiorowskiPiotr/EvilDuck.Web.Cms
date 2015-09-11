@@ -42,6 +42,9 @@
                     @Html.Partial("_GridStringFilter", "DeleteQueryName")
                 </th>
                 <th>
+                    @Html.Partial("_GridHeader", new GridHeaderModel("CreatedBy", "Utworzony przez"))
+                </th>
+                <th>
                     @Html.Partial("_GridHeader", new GridHeaderModel("CreatedOn", "Utworzony"))
                 </th>
                 <th>
