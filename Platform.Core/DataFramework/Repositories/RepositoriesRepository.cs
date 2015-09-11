@@ -21,5 +21,10 @@ namespace EvilDuck.Platform.Core.DataFramework.Repositories
         {
             return await AdHocQuery().Include(e => e.DeleteQuery).Include(e => e.InsertQuery).Include(e => e.SelectQueries).Include(e => e.UpdateQuery).Where(e => e.Name == name).SingleOrDefaultAsync();
         }
+
+        public Repository GetByName(string name)
+        {
+            return AdHocQuery().Include(e => e.DeleteQuery).Include(e => e.InsertQuery).Include(e => e.SelectQueries).Include(e => e.UpdateQuery).SingleOrDefault(e => e.Name == name);
+        }
     }
 }

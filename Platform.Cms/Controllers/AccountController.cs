@@ -56,18 +56,6 @@ namespace EvilDuck.Platform.Cms.Controllers
             var identity = new ClaimsIdentity(claims, "Bearer");
             AuthenticationManager.SignIn(identity);
             return new EmptyResult();
-            /*
-            var claims = new ClaimsPrincipal(User).Claims.ToArray();
-            var identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
-            //AuthenticationManager.SignIn(identity);
-            var ticket = new AuthenticationTicket(identity, new AuthenticationProperties());
-            var currentUtc = new Microsoft.Owin.Infrastructure.SystemClock().UtcNow;
-            ticket.Properties.IssuedUtc = currentUtc;
-            ticket.Properties.ExpiresUtc = currentUtc.Add(TimeSpan.FromDays(1));
-            var accesstoken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
-            return Json(accesstoken, JsonRequestBehavior.AllowGet);
-             * */
-
         }
 
         //

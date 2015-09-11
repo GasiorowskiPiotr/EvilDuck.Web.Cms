@@ -24,5 +24,10 @@ namespace EvilDuck.Platform.Core.DataFramework.Repositories
         {
             return AdHocQuery().Where(e => e.Name == method && types.Contains(e.Type)).SingleOrDefaultAsync();
         }
+
+        public Query GetByName(string name)
+        {
+            return AdHocQuery().SingleOrDefault(e => e.Name == name);
+        }
     }
 }

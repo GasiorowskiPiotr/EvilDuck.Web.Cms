@@ -101,6 +101,8 @@
   <ItemGroup>
     <Compile Include="DataAccess\PlatformDomainContext.cs" />
     <Compile Include="DataAccess\PlatformUnitOfWork.cs" />
+    <Compile Include="DataFramework\Cache\QueriesCache.cs" />
+    <Compile Include="DataFramework\Cache\RepositoriesCache.cs" />
     <Compile Include="DataFramework\Cache\TablesCache.cs" />
     <Compile Include="DataFramework\Logic\DbConnectionRequested.cs" />
     <Compile Include="DataFramework\Logic\DbTableCreatedEventArgs.cs" />

@@ -2,12 +2,6 @@
 using EvilDuck.Applications.SystemParameters.Entities;
 using EvilDuck.Framework.Core.Cache;
 using NLog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Http;
 
 namespace EvilDuck.Applications.SystemParameters.Core
 {
@@ -28,21 +22,21 @@ namespace EvilDuck.Applications.SystemParameters.Core
             var codeKey = (SystemParametersCacheKey)key;
             var code = codeKey.KeyAsString;
 
-            var domainContext = (SystemParametersDomainContext)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(SystemParametersDomainContext));
+            var domainContext = new SystemParametersDomainContext();
             var sp = domainContext.SystemParameters.Find(code);
             if (sp != null)
             {
-                base.Add(key, sp);
+                Add(key, sp);
                 value = sp;
+                return;
             }
             value = null;
-            
         }
 
         private class SystemParametersCacheKey : ICacheKey
         {
 
-            private string _code;
+            private readonly string _code;
 
             public SystemParametersCacheKey(string code)
             {
